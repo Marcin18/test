@@ -132,3 +132,18 @@ function signIn() {
         $(".signUp").removeClass("inactive-sx");
     });
 }
+
+function sendContact() {
+    $("a[href^='tel:']").click(function (event) {
+        event.preventDefault();
+        link = $(this).attr('href');
+        tracklink = link.replace("tel:", "")
+        tracklink = tracklink.replace(spechars, "")
+        if (tracklink.length == 10) { tracklink = "1" + tracklink }
+        ga('send', 'event', 'Contact', 'Phone', tracklink);
+        //_gaq.push(['_trackEvent', 'Contact', 'Phone', tracklink]);
+        setTimeout(function () {.
+            window.location = link;
+        }, 300);
+    });
+}
