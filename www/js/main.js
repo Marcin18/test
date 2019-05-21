@@ -120,10 +120,10 @@ function signIn() {
 function internetConnection() {
     var networkState = navigation.connection.type;
     if (networkState == 'none') {
-        return ("false");
+        return "false";
     }
     else {
-        return ("true");
+        return "true";
     }
 }
 
