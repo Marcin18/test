@@ -167,7 +167,7 @@ function test() {
         //
         //    xhr.send();
     //}
-    if (this.internetConnection()) {
+    if (internetConnection() === "true") {
         //offline
         alert("brak internetu");
     } else {
