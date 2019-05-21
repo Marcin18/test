@@ -118,7 +118,7 @@ function signIn() {
 }
 
 function internetConnection() {
-    var networkState = navigation.connection.type;
+    var networkState = navigator.connection.type;
     if (networkState == 'none') {
         return "false";
     }
@@ -126,8 +126,6 @@ function internetConnection() {
         return "true";
     }
 }
-
-
 
 function test() {
     //var xmlHttp = new XMLHttpRequest();
@@ -167,7 +165,7 @@ function test() {
         //
         //    xhr.send();
     //}
-    if (internetConnection() === "true") {
+    if (internetConnection()) {
         //offline
         alert("brak internetu");
     } else {
