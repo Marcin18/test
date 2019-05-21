@@ -130,12 +130,19 @@ function internetConnection() {
 
 function GPSConnection() {
     if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
         alert("GPS dziala");
     }
     else {
         alert("włącz GPS");
     }
 }
+
+function showPosition(position) {
+    var innerHTML = "Latitude: " + position.coords.latitude +
+        " Longitude: " + position.coords.longitude;
+    alert(innerHeight);
+} 
 
 function test() {
     //var xmlHttp = new XMLHttpRequest();
