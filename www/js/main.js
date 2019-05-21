@@ -116,7 +116,18 @@ function signIn() {
         $(".signUp").removeClass("inactive-sx");
     });
 }
-var url = 'somePage.html'; //A local page
+
+function internetConnection() {
+    var networkState = navigation.connection.type;
+    if (networkState == 'none') {
+        return ("false");
+    }
+    else {
+        return ("true");
+    }
+}
+
+
 
 function test() {
     //var xmlHttp = new XMLHttpRequest();
@@ -155,9 +166,8 @@ function test() {
         //    })
         //
         //    xhr.send();
-        //}
-    var networkState = navigator.connection.type;
-    if (networkState == 'none') { //Connection.NONE   
+    //}
+    if (internetConnection()) {
         //offline
         alert("brak internetu");
     } else {
