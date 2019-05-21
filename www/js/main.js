@@ -137,11 +137,12 @@ function test() {
     //xmlHttp.send("currency=EUR&transaction=purchase");
 
     let xhr = new XMLHttpRequest();
-
+    alert("aaa");
     //typ połączenia, url, czy połączenie asynchroniczne
     xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
 
     xhr.addEventListener('load', function () {
+        
         if (this.status === 200) {
             const json = JSON.parse(this.responseText);
             alert(this.responseText);
