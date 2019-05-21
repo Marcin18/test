@@ -130,19 +130,37 @@ function internetConnection() {
 
 function GPSConnection() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        alert("GPS dziala");
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        //alert("GPS dziala");
     }
     else {
         alert("włącz GPS");
     }
 }
 
-function showPosition(position) {
-    var innerHTML = "Latitude: " + position.coords.latitude +
-        " Longitude: " + position.coords.longitude;
-    alert(innerHeight);
-} 
+
+
+// onSuccess Geolocation
+//
+function onSuccess(position) {
+    var element;
+    element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
+        'Longitude: ' + position.coords.longitude + '<br />' +
+        'Altitude: ' + position.coords.altitude + '<br />' +
+        'Accuracy: ' + position.coords.accuracy + '<br />' +
+        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '<br />' +
+        'Heading: ' + position.coords.heading + '<br />' +
+        'Speed: ' + position.coords.speed + '<br />' +
+        'Timestamp: ' + position.timestamp + '<br />';
+    alert(element);
+}
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+}
 
 function test() {
     //var xmlHttp = new XMLHttpRequest();
