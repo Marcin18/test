@@ -137,9 +137,8 @@ function test() {
     //xmlHttp.send("currency=EUR&transaction=purchase");
 
     let xhr = new XMLHttpRequest();
-    alert("aaa");
     //typ połączenia, url, czy połączenie asynchroniczne
-    xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+    xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
 
     xhr.addEventListener('load', function () {
         
