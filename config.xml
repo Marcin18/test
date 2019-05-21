@@ -3,12 +3,20 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "forexOffline"
         version     = "1.0.0" >
-
+	<meta http-equiv="Content-Security-Policy" content="default-src *; style-src *  'unsafe-inline'; script-src *  'unsafe-inline'; media-src *">
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
+	
     <name>Forex Offline</name>
     <description>Informator o okolicznych kantorach</description>
 	<platform name="android" />
 	
 	<plugin name="cordova-plugin-device" spec="2.0.1" />
 	<plugin name="cordova-plugin-dialogs" spec="2.0.1" />
-
+	<plugin name="cordova-plugin-whitelist" spec="1.2.2" />
+	<allow-intent href="http://*/*" />
+	<allow-intent href="https://*/*" />
+	<allow-intent href="tel:*" />
+	<allow-intent href="sms:*" />
+	<allow-intent href="mailto:*" />
+	<allow-intent href="geo:*" />
 </widget>
