@@ -117,6 +117,7 @@ function signIn() {
     });
 }
 
+// Funkcja sprawdza połączenie z internetem
 function internetConnection() {
     var networkState = navigator.connection.type;
     if (networkState == 'none') {
@@ -124,6 +125,15 @@ function internetConnection() {
     }
     else {
         return "true";
+    }
+}
+
+function GPSConnection() {
+    if (navigator.geolocation) {
+        alert("GPS dziala");
+    }
+    else {
+        alert("włącz GPS");
     }
 }
 
@@ -166,11 +176,10 @@ function test() {
         //    xhr.send();
     //}
     if (internetConnection() === "true") {
-        //online  
-        alert("internet");
+        
     } else {
         //offline
-        alert("brak internetu");
+        alert("Brak dostępu do internetu");
 
     }
 }
