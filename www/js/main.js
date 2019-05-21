@@ -135,28 +135,41 @@ function test() {
     //});
     //
     //xmlHttp.send("currency=EUR&transaction=purchase");
-        var networkState = navigator.connection.type;
-        if (Connection.NONE == networkState)
-            alert("brak dostepu do internetu");
-        else {
+        //var networkState = navigator.connection.type;
+        //if (Connection.NONE == networkState)
+        //    alert("brak dostepu do internetu");
+        //else {
+        //    let xhr = new XMLHttpRequest();
+        //    //typ połączenia, url, czy połączenie asynchroniczne
+        //    xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
+        //
+        //    xhr.addEventListener('load', function () {
+        //        if (this.status === 200) {
+        //            //const json = JSON.parse(this.responseText);
+        //            //alert(this.responseText);
+        //            alert("jest odpowiedz");
+        //        }
+        //        else {
+        //            alert("brak odpowiedzi");
+        //        }
+        //    })
+        //
+        //    xhr.send();
+        //}
 
-            let xhr = new XMLHttpRequest();
-            //typ połączenia, url, czy połączenie asynchroniczne
-            xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
+    var networkState = navigator.connection.type;
 
-            xhr.addEventListener('load', function () {
-                if (this.status === 200) {
-                    //const json = JSON.parse(this.responseText);
-                    //alert(this.responseText);
-                    alert("jest odpowiedz");
-                }
-                else {
-                    alert("brak odpowiedzi");
-                }
-            })
+    var states = {};
+    states[Connection.UNKNOWN] = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI] = 'WiFi connection';
+    states[Connection.CELL_2G] = 'Cell 2G connection';
+    states[Connection.CELL_3G] = 'Cell 3G connection';
+    states[Connection.CELL_4G] = 'Cell 4G connection';
+    states[Connection.CELL] = 'Cell generic connection';
+    states[Connection.NONE] = 'No network connection';
 
-            xhr.send();
-        }
+    alert('Connection type: ' + states[networkState]);
 
 
 
