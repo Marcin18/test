@@ -176,7 +176,7 @@ function test() {
         //    xhr.send();
     //}
     if (internetConnection() === "true") {
-        
+        GPSConnection();
     } else {
         //offline
         alert("Brak dostępu do internetu");
