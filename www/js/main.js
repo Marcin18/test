@@ -119,21 +119,36 @@ function signIn() {
 var url = 'somePage.html'; //A local page
 
 function test() {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //var xmlHttp = new XMLHttpRequest();
+    //xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+    //xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+    //xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //
+    //xmlHttp.addEventListener('load', function () {
+    //    if (this.status === 200) {
+    //        alert('Wynik połączenia:');
+    //    }
+    //});
+    //
+    //xmlHttp.addEventListener('error', function (e) {
+    //    alert('Wystąpił błąd połączenia')
+    //});
+    //
+    //xmlHttp.send("currency=EUR&transaction=purchase");
 
-    xmlHttp.addEventListener('load', function () {
+    let xhr = new XMLHttpRequest();
+
+    //typ połączenia, url, czy połączenie asynchroniczne
+    xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
+
+    xhr.addEventListener('load', function () {
         if (this.status === 200) {
-            alert('Wynik połączenia:');
+            const json = JSON.parse(this.responseText);
+            alert(this.responseText);
         }
-    });
+    })
 
-    xmlHttp.addEventListener('error', function (e) {
-        alert('Wystąpił błąd połączenia')
-    });
+    xhr.send();
 
-    xmlHttp.send("currency=EUR&transaction=purchase");
 }
 
