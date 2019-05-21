@@ -165,12 +165,13 @@ function test() {
         //
         //    xhr.send();
     //}
-    if (internetConnection()) {
-        //offline
-        alert("brak internetu");
-    } else {
+    if (internetConnection() === "true") {
         //online  
         alert("internet");
+    } else {
+        //offline
+        alert("brak internetu");
+
     }
 }
 
