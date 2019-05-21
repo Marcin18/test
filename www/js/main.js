@@ -135,23 +135,31 @@ function test() {
     //});
     //
     //xmlHttp.send("currency=EUR&transaction=purchase");
-
-    let xhr = new XMLHttpRequest();
-    //typ połączenia, url, czy połączenie asynchroniczne
-    xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
-
-    xhr.addEventListener('load', function () {
-        if (this.status === 200) {
-            //const json = JSON.parse(this.responseText);
-            //alert(this.responseText);
-            alert("jest odpowiedz");
-        }
+    function checkConnection() {
+        var networkState = navigator.connection.type;
+        if (Connection.NONE == networkState)
+            alert("brak dostepu do internetu");
         else {
-            alert("brak odpowiedzi");
-        }
-    })
 
-    xhr.send();
+            let xhr = new XMLHttpRequest();
+            //typ połączenia, url, czy połączenie asynchroniczne
+            xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
+
+            xhr.addEventListener('load', function () {
+                if (this.status === 200) {
+                    //const json = JSON.parse(this.responseText);
+                    //alert(this.responseText);
+                    alert("jest odpowiedz");
+                }
+                else {
+                    alert("brak odpowiedzi");
+                }
+            })
+
+            xhr.send();
+        }
+    }
+
 
 }
 
