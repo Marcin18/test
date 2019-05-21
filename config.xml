@@ -10,7 +10,7 @@
 	
 	<plugin name="cordova-plugin-device" spec="2.0.1" />
 	<plugin name="cordova-plugin-dialogs" spec="2.0.1" />
-	<plugin name="Geolocation" value="org.apache.cordova.geolocation.Geolocation" />
+	<plugin name="Geolocation" spec="org.apache.cordova.geolocation.Geolocation" />
 	<allow-intent href="http://*/*" />
 	<allow-intent href="https://*/*" />
 	<allow-intent href="tel:*" />
