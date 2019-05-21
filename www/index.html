@@ -16,9 +16,8 @@
     <div class="container" style="padding:0px 0px 0px 0px;position:relative">
         <!-- Struktura Menu -->
         <div class="topnav">
-            <input type="text" id="filterInput" onclick="displayShow('liTips','true')" onkeyup="filterSearch()" class="search-focus" style="padding-left:26px;font-size:16px" placeholder="Szukaj">
-            <a class="active" onclick="displayShow('liTips','false')" style="text-align:center;font-size:15px;color:white"><b>Forex Offline</b></a>
-            <div id="myLinks" onclick="displayShow('liTips','false')">
+            <a class="active" style="text-align:center;font-size:15px;color:white"><b>Forex Offline</b></a>
+            <div id="myLinks">
                 <a href="#">HOME</a>
                 <a href="html/transaction.html">DODAJ TRANSAKCJE</a>
                 <a href="html/history.html">HISTORIA OPERACJI</a>
@@ -30,10 +29,7 @@
             </a>
         </div>
         <!-- Koniec struktury Menu -->
-        <!-- Poczatek podpowiedzi -->
-        <div w3-include-html="html/searchTips.html"></div>
-        <!-- Koniec podpowiedzi -->
-        <dir onclick="displayShow('liTips','false')">
+        <dir>
             <div class="separator"></div>
             <!-- Poczatek tekstu informacyjnego -->
             <div class="text">
@@ -44,10 +40,10 @@
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku TRANSAKCJA -->
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="transaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:50%;text-transform:uppercase">
+                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="transaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
                     TRANSAKCJA:
                 </button>
-                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="transaction" style="width:50%;text-transform:uppercase">
+                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="transaction" style="width:75%;text-transform:uppercase">
                     <a class="dropdown-item"><center>Kupno</center></a>
                     <a class="dropdown-item"><center>Sprzedaż</center></a>
                 </div>
@@ -56,10 +52,10 @@
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku WALUTA -->
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="currency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:50%;text-transform:uppercase">
+                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="currency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
                     WALUTA:
                 </button>
-                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="currency" style="width:50%">
+                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="currency" style="width:75%">
                     <a class="dropdown-item"><center>Euro</center></a>
                     <a class="dropdown-item"><center>Dolar</center></a>
                     <a class="dropdown-item"><center>Funt Brytyjski</center></a>
@@ -69,12 +65,12 @@
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia inputBoxa -->
             <div class="form-group">
-                <input type="number" name="howMuch" class="form-control center-block" id="howMuch" placeholder="Ilość waluty obcej" style="width:50%;text-align:center">
+                <input type="number" name="howMuch" class="form-control center-block" id="howMuch" placeholder="Ilość waluty obcej" style="width:75%;text-align:center">
             </div>
             <!-- Koniec wyswietlenia przycisku inputBoxa-->
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku SZUKAJ -->
-            <button class="btn btn-success center-block" type="button" id="search" aria-haspopup="true" aria-expanded="false" style="width:50%" onclick="clickMe()">
+            <button class="btn btn-success center-block" type="button" id="search" aria-haspopup="true" aria-expanded="false" style="width:75%" onclick="test()">
                 SZUKAJ
             </button>
             <!-- Koniec wyswietlenia przycisku SZUKAJ -->
@@ -82,6 +78,5 @@
     </div>
     <script>includeHTML();</script>
     <script>getItem();</script>
-    <script>filterSearch();</script>
 </body>
 </html >

@@ -12,6 +12,19 @@ body {
     margin-top:20px;
 }
 
+.historyBox {
+    border: 1px solid black;
+    border-radius: 30px;
+    background-color: #9bf31b;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.25);
+    padding-left: unset;
+    padding-right: unset;
+    font-size: 16px;
+    width: 75%;
+    overflow: hidden;
+    margin-bottom:20px;
+}
+
 .text {
     margin-left: auto;
     margin-right: auto;
@@ -83,61 +96,6 @@ body {
     background-color: #4CAF50;
     color: white;
 }
-
-/*ustawienia dla wyszukiwarki*/
-section {
-    padding: 5em;
-}
-
-::-webkit-input-placeholder {
-    color:  black;
-}
-
-::-moz-placeholder {
-    color:silver;
-}
-
-.search-focus {
-    background-image: url("../images/search-icon.png");
-    background-repeat: no-repeat;
-    outline: none;
-    background-size: 22px;
-    background-position: 5px;
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-    transition: all .5s;
-}
-
-.search-focus:focus {
-    border-radius: 0px;
-    text-align: right;
-    height: 39px;
-    width: 45%;
-    text-transform:uppercase;
-}
-
-.searchTip {
-    width: 45%;
-    font-size: 16px;
-    float: right;
-    margin-right: 10px;
-}
-
-.searchTip #liTips{
-    display: none;
-    position: absolute;
-    width: 45%;
-    background-color: white;
-    border-bottom: 1px solid #4CAF50;
-    border-left: 1px solid #4CAF50;
-    border-right: 1px solid #4CAF50;
-    overflow:auto;
-    max-height:75px;
-    border-bottom-left-radius: 20px;
-    margin-right: 10px;
-}
-
 
 /*Logowanie*/
 form {

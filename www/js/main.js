@@ -83,22 +83,6 @@ function getItem() {
     });
 }
 
-// funkcja filtrujaca wyszukiwarkę.
-function filterSearch() {
-    let filterValue = document.getElementById('filterInput').value.toUpperCase(); // pobranie wartości z wyszukiwarki
-    let ul = document.getElementById('tips'); // pobranie elementu ul
-    let li = ul.querySelectorAll('li.name-item'); // pobranie listy podpowiedzi
-    // Pętla wyświetlająca przefiltrowane podpowiedzi
-    for (let i = 0; i < li.length; i++) {
-        let a = li[i].getElementsByTagName('a')[0];
-        if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
-            li[i].style.display = '';
-        } else {
-            li[i].style.display = 'none';
-        }
-    }
-}
-
 // funkcja wyświetla lub nie wyświetla danego diva.
 function displayShow(idElement, bool) {
     x = document.getElementById(idElement);
@@ -132,19 +116,24 @@ function signIn() {
         $(".signUp").removeClass("inactive-sx");
     });
 }
+var url = 'somePage.html'; //A local page
 
-function sendContact() {
-    $("a[href^='tel:']").click(function () {
-        event.preventDefault();
-        link = $(this).attr('href');
-        tracklink = link.replace("tel:", "")
-        tracklink = tracklink.replace(spechars, "")
-        if (tracklink.length == 10) { tracklink = "1" + tracklink }
-        ga('send', 'event', 'Contact', 'Phone', tracklink);
-		 window.location = link;
-        //_gaq.push(['_trackEvent', 'Contact', 'Phone', tracklink]);
-        //setTimeout(function () {.
-        //    window.location = link;
-        //}, 300);
+function test() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xmlHttp.addEventListener('load', function () {
+        if (this.status === 200) {
+            alert('Wynik połączenia:');
+        }
     });
+
+    xmlHttp.addEventListener('error', function (e) {
+        alert('Wystąpił błąd połączenia')
+    });
+
+    xmlHttp.send("currency=EUR&transaction=purchase");
 }
+
