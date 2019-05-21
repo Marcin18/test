@@ -135,7 +135,6 @@ function test() {
     //});
     //
     //xmlHttp.send("currency=EUR&transaction=purchase");
-    function checkConnection() {
         var networkState = navigator.connection.type;
         if (Connection.NONE == networkState)
             alert("brak dostepu do internetu");
@@ -158,7 +157,7 @@ function test() {
 
             xhr.send();
         }
-    }
+
 
 
 }
