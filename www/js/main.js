@@ -141,10 +141,13 @@ function test() {
     xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
 
     xhr.addEventListener('load', function () {
-        
         if (this.status === 200) {
-            const json = JSON.parse(this.responseText);
-            alert(this.responseText);
+            //const json = JSON.parse(this.responseText);
+            //alert(this.responseText);
+            alert("jest odpowiedz");
+        }
+        else {
+            alert("brak odpowiedzi");
         }
     })
 
