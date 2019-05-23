@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+</head>
+<body>
+    <div class="container" style="padding:0px 0px 0px 0px;position:relative">
+        <div w3-include-html="menu.html"></div>
+        <dir>
+            <!-- Poczatek wyswietlenia przycisku WALUTA -->
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="transaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
+                    SORTUJ
+                </button>
+                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="transaction" style="width:75%;text-transform:uppercase">
+                    <a class="dropdown-item"><center>NAJSTARSZE</center></a>
+                    <a class="dropdown-item"><center>NAJNOWSZE</center></a>
+                </div>
+            </div>
+            <!-- Koniec wyswietlenia przycisku WALUTA -->
+            <!-- Początek wyswietlania poszczególnych operacji-->
+            <dir class="separator"></dir>
+            <center>
+                <dir class="historyBox">
+                    <i><u><b>15.04.2019</b></u></i><br />
+                    Sprzedaż: <font color="red"><b>500 $</b></font><br />
+                    Po kursie: <font color="red"><b>3.80</b></font><br />
+                    Na kwotę: <font color="red"><b>1900 zł</b></font><br />
+                    W kantorze: <font color="red"><b>EXCHANGE</b></font>
+                </dir>
+                <dir class="historyBox">
+                    <i><u><b>15.04.2019</b></u></i><br />
+                    Sprzedaż: <font color="red"><b>500 $</b></font><br />
+                    Po kursie: <font color="red"><b>3.80</b></font><br />
+                    Na kwotę: <font color="red"><b>1900 zł</b></font><br />
+                    W kantorze: <font color="red"><b>EXCHANGE</b></font>
+                </dir>
+            </center>
+            <!-- Koniec wyswietlania poszczególnych operacji-->
+        </dir>
+    </div>
+    <script>includeHTML();</script>
+    <script>getItem()</script>
+</body>
+</html>

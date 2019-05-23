@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" type="text/css" />
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+</head>
+<body>
+    <div class="container" style="padding:0px 0px 0px 0px;position:relative">
+        <div w3-include-html="menu.html"></div>
+        <dir>
+            <!--Twój HTML-->
+            <div>
+                <form class="signUp">
+                    <h3>Create Your Account</h3>
+                    <p>
+                        Just enter your email address<br/>
+                        and your password for join.
+                    </p>
+                    <input class="w100" type="email" placeholder="Insert eMail" reqired autocomplete='off' />
+                    <input type="password" placeholder="Insert Password" reqired />
+                    <input type="password" placeholder="Verify Password" reqired />
+                    <button class="form-btn sx log-in" type="button">Log In</button>
+                    <button class="form-btn dx" type="submit">Sign Up</button>
+                </form>
+                <form class="signIn">
+                    <h3>Welcome<br/>Back !</h3>
+                    <button class="fb" type="button">Log In With Facebook</button>
+                    <p>- or -</p>
+                    <input type="email" placeholder="Insert eMail" autocomplete='off' reqired />
+                    <input type="password" placeholder="Insert Password" reqired />
+                    <button class="form-btn sx back" type="button">Back</button>
+                    <button class="form-btn dx" type="submit">Sign Up</button>
+                </form>
+            </div>
+            <!--Koniec twojego HTML-->
+        </dir>
+    </div>
+    <script>includeHTML();</script>
+    <script>logIn();</script>
+    <script>signIn();</script>
+</body>
+</html>
