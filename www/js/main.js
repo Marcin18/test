@@ -116,13 +116,12 @@ function internetConnection() {
     }
 }
 
+// Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() { 
     var e = document.getElementById("transaction");
     var transactionQuantor = e.options[e.selectedIndex].value;
     var f = document.getElementById("currency");
     var currencyQuantor = f.options[f.selectedIndex].value;
-    //var transactionQuantor = f.options[f.selectedIndex].text;
-    alert(currencyQuantor + transactionQuantor);
     if (this.internetConnection() === "true") {
         let xmlHttp = new XMLHttpRequest();
         xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
