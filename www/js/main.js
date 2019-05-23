@@ -155,7 +155,17 @@ function onError(error) {
 }
 
 function test() {
-    GPSConnection();
+    if (navigator.geolocation) {
+        alert('jestem w gps');
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            getData(lat, long);
+        });
+    }
+    else {
+        alert('nie jestem w gps');
+    }
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.withCredentials = true;
     xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
@@ -177,6 +187,7 @@ function test() {
         }
         else {
             alert('Połączenie zakończyło się statusem ' + this.status);
+            alert('wynik bledu: '+xmlHttp.responseText);
         }
     });
 
