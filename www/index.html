@@ -40,28 +40,17 @@
             <!-- Koniec tekstu informacyjnego -->
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku TRANSAKCJA -->
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="transaction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
-                    TRANSAKCJA:
-                </button>
-                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="transaction" style="width:75%;text-transform:uppercase">
-                    <a class="dropdown-item"><center>Kupno</center></a>
-                    <a class="dropdown-item"><center>Sprzedaż</center></a>
-                </div>
-            </div>
+            <select id="transaction" class="btn btn-primary dropdown-toggle center-block" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
+                <option value="purchase">KUPNO</option>
+                <option value="sale" style="text-align:center">SPRZEDAŻ</option>
+            </select>
             <!-- Koniec wyswietlenia przycisku TRANSAKCJA -->
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku WALUTA -->
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle center-block" type="button" id="currency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
-                    WALUTA:
-                </button>
-                <div class="dropdown-menu dropdown-menu-center" aria-labelledby="currency" style="width:75%">
-                    <a class="dropdown-item"><center>Euro</center></a>
-                    <a class="dropdown-item"><center>Dolar</center></a>
-                    <a class="dropdown-item"><center>Funt Brytyjski</center></a>
-                </div>
-            </div>
+            <select id="currency" class="btn btn-primary dropdown-toggle center-block" aria-haspopup="true" aria-expanded="false" style="width:75%;text-transform:uppercase">
+                <option value="EUR">EURO</option>
+                <option value="USD" style="text-align:center">DOLAR</option>
+            </select>
             <!-- Koniec wyswietlenia przycisku WALUTA -->
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia inputBoxa -->
@@ -71,10 +60,10 @@
             <!-- Koniec wyswietlenia przycisku inputBoxa-->
             <div class="separator"></div>
             <!-- Poczatek wyswietlenia przycisku SZUKAJ -->
-            <button class="btn btn-success center-block" type="button" id="search" aria-haspopup="true" aria-expanded="false" style="width:75%" onclick="test()">
+            <button class="btn btn-success center-block" type="button" id="search" aria-haspopup="true" aria-expanded="false" style="width:75%" onclick="searchOffer()">
                 SZUKAJ
             </button>
-            <!-- Koniec wyswietlenia przycisku SZUKAJ -->            
+            <!-- Koniec wyswietlenia przycisku SZUKAJ -->
         </dir>
     </div>
     <script>includeHTML();</script>

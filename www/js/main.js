@@ -63,18 +63,6 @@ function includeHTML() {
     }
 };
 
-// funkcja obsługuje proces kliknięcia w menu wyszukiwania
-function expand() {
-  $(".search").toggleClass("close");
-  $(".input").toggleClass("square");
-  if ($('.search').hasClass('close')) {
-    $('input').focus();
-  } else {
-    $('input').blur();
-  }
-}
-$('button').on('click', expand);
-
 // funkcja ustawia w dropdown wybraną wartość przez użytkownika
 function getItem() {
     $(".dropdown-menu a").click(function () {
@@ -128,108 +116,51 @@ function internetConnection() {
     }
 }
 
-function GPSConnection() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 10000 });
-}
+function searchOffer() { 
+    var e = document.getElementById("transaction");
+    var transactionQuantor = e.options[e.selectedIndex].value;
+    var f = document.getElementById("currency");
+    var currencyQuantor = f.options[f.selectedIndex].value;
+    //var transactionQuantor = f.options[f.selectedIndex].text;
+    alert(currencyQuantor + transactionQuantor);
+    if (this.internetConnection() === "true") {
+        let xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+        xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+        xmlHttp.setRequestHeader("Accept", "*/*");
+        xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+        xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+        xmlHttp.setRequestHeader("Host", "quantor.pl");
+        xmlHttp.setRequestHeader("cookie", "device_view=full");
+        xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+        xmlHttp.setRequestHeader("content-length", "33");
+        xmlHttp.setRequestHeader("Connection", "keep-alive");
+        xmlHttp.timeout = 4000;
 
-// onSuccess Geolocation
-//
-function onSuccess(position) {
-    var element;
-    element.innerHTML = 'Latitude: ' + position.coords.latitude + '<br />' +
-        'Longitude: ' + position.coords.longitude + '<br />' +
-        'Altitude: ' + position.coords.altitude + '<br />' +
-        'Accuracy: ' + position.coords.accuracy + '<br />' +
-        'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '<br />' +
-        'Heading: ' + position.coords.heading + '<br />' +
-        'Speed: ' + position.coords.speed + '<br />' +
-        'Timestamp: ' + position.timestamp + '<br />';
-    alert(element);
-}
+        xmlHttp.addEventListener('load', function () {
+            if (this.status === 200) {
+                alert('Wynik połączenia:' + this.responseText);
+            }
+            else {
+                alert('Połączenie zakończyło się statusem ' + this.status);
+            }
+        });
 
-// onError Callback receives a PositionError object
-//
-function onError(error) {
-    alert('GPS ERROR, code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
-}
+        xmlHttp.addEventListener('error', function (e) {
+            alert('Wystąpił błąd połączenia, proszę spróbować ponownie za chwilę');
+        });
 
-function test() {
-    GPSConnection();
-    let xmlHttp = new XMLHttpRequest();
-    //xmlHttp.withCredentials = true;
-    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-    xmlHttp.setRequestHeader("Accept", "*/*");
-    xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-    xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-    xmlHttp.setRequestHeader("Host", "quantor.pl");
-    xmlHttp.setRequestHeader("cookie", "device_view=full");
-    xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-    xmlHttp.setRequestHeader("content-length", "33");
-    xmlHttp.setRequestHeader("Connection", "keep-alive");
-    xmlHttp.timeout = 4000;
+        xmlHttp.addEventListener('timeout', function () {
+            alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+        });
+
+        xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
+    }
+    else {
+        alert("Brak dostępu do internetu");
+    }
     
-    xmlHttp.addEventListener('load', function () {
-        if (this.status === 200) {
-            alert('Wynik połączenia:' + this.responseText);
-        }
-        else {
-            alert('Połączenie zakończyło się statusem ' + this.status);
-            alert('wynik bledu: '+ this.responseText);
-        }
-    });
-
-    xmlHttp.addEventListener('error', function (e) {
-        alert('Wystąpił błąd połączenia');
-    });
-
-
-    xmlHttp.addEventListener('timeout', function () {
-        alert('timeout');
-    });
-
-    xmlHttp.addEventListener('loadstart', function () {
-        alert('loadstart');
-    });
-
-    xmlHttp.send("currency=EUR&transaction=purchase");
-    //xmlHttp.addEventListener('error', function () {
-    //    alert('Wystąpił błąd połączenia');
-    //});
-    //
-    //xmlHttp.send("currency=EUR&transaction=purchase");
-    //   var networkState = navigator.connection.type;
-    //   if (Connection.NONE == networkState)
-    //       alert("brak dostepu do internetu");
-    //   else {
-    //       let xhr = new XMLHttpRequest();
-    //       //typ połączenia, url, czy połączenie asynchroniczne
-    //       xhr.open("GET", "http://api.nbp.pl/api/exchangerates/rates/a/chf/", true);
-    //   
-    //       xhr.addEventListener('load', function () {
-    //           if (this.status === 200) {
-    //               //const json = JSON.parse(this.responseText);
-    //               //alert(this.responseText);
-    //               alert("jest odpowiedz");
-    //           }
-    //           else {
-    //               alert("brak odpowiedzi");
-    //           }
-    //       })
-    //   
-    //       xhr.send();
-    //}
-
-
-    //if (internetConnection() === "true") {
-    //    GPSConnection();
-    //} else {
-    //    //offline
-    //    alert("Brak dostępu do internetu");
-    //
-    //}
 }
 
