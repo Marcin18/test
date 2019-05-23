@@ -180,6 +180,7 @@ function test() {
     xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
     xmlHttp.setRequestHeader("content-length", "33");
     xmlHttp.setRequestHeader("Connection", "keep-alive");
+    xmlHttp.timeout = 4000;
     
     xmlHttp.addEventListener('load', function () {
         if (this.status === 200) {
