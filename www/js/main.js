@@ -188,7 +188,8 @@ function test() {
         }
         else {
             alert('Połączenie zakończyło się statusem ' + this.status);
-            alert('wynik bledu: '+xmlHttp.responseText);
+            const json = JSON.parse(this.responseText);
+            alert('wynik bledu: '+ this.responseText);
         }
     });
 
