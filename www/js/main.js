@@ -129,7 +129,7 @@ function internetConnection() {
 }
 
 function GPSConnection() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 10000 });
 }
 
 // onSuccess Geolocation
