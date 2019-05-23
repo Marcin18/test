@@ -174,7 +174,7 @@ function test() {
     
     xmlHttp.addEventListener('load', function () {
         if (this.status === 200) {
-            alert('Wynik połączenia:');
+            alert('Wynik połączenia:' + this.responseText);
         }
         else {
             alert('Połączenie zakończyło się statusem ' + this.status);
