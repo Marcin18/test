@@ -13,7 +13,7 @@
   <preference name="SplashScreen" value="screen" />
   <preference name="windows-target-version" value="10.0" />
   <!-- Support for Cordova 5.0.0 plugin system -->
-  <plugin name="cordova-plugin-whitelist" spec="1.2.2" />
+  <plugin name="cordova-plugin-whitelist" spec="4.0" />
   	<plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 	<plugin name="Geolocation" value="org.apache.cordova.geolocation.Geolocation" />
 	<plugin name="Geolocation" value="CDVLocation" />
