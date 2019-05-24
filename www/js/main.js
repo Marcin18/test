@@ -140,8 +140,8 @@ function searchOffer() {
 
         xmlHttp.addEventListener('load', function () {
             if (this.status === 200) {
-                //var data = JSON.parse(this.responseText);
-                alert('Wynik połączenia:' + this.responseText.data[1]);
+                var dataInfo = JSON.parse(this.responseText);
+                alert('Wynik połączenia:' + dataInfo);
             }
             else {
                 alert('Połączenie zakończyło się statusem ' + this.status);
