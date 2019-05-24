@@ -144,7 +144,8 @@ function searchOffer() {
                 //alert('Wynik połączenia:' + this.responseText);
                 var dane = JSON.parse(this.responseText);
                 for (var step = 0; step < dane.rates.length; step++) {
-                    alert("W kantorze: <br/>" + dane.rates[step].name + " zapłacą <br/> " + dane.rates[step].saleValue + "<br/>");
+                    alert("W kantorze: " + dane.rates[step].name + " zapłacą: " + dane.rates[step].saleValue + " za kurs jednostkowy");
+                    //alert("W kantorze: <br/>" + dane.rates[step].name + " zapłacą <br/> " + dane.rates[step].saleValue + "<br/>"); // <br> wyświetlaja sie w alercie
                 }
             }
             else {
