@@ -137,30 +137,40 @@ function searchOffer() {
         xmlHttp.setRequestHeader("content-length", "33");
         xmlHttp.setRequestHeader("Connection", "keep-alive");
         xmlHttp.timeout = 4000;
-
+    
         xmlHttp.addEventListener('load', function () {
             if (this.status === 200) {
                 //var dataInfo = JSON.parse(this.responseText);
-                alert('Wynik połączenia:' + this.responseText);
+                //alert('Wynik połączenia:' + this.responseText);
+                var dane = JSON.parse(this.responseText);
+                for (var step = 0; step < dane.rates.length; step++) {
+                    alert("Kurs waluty w kantorze: " + dane.rates[step].name + " " + dane.rates[step].saleValue + "<br/>");
+                }
             }
             else {
                 alert('Połączenie zakończyło się statusem ' + this.status);
             }
         });
-
+    
         xmlHttp.addEventListener('error', function (e) {
             alert('Wystąpił błąd połączenia, proszę spróbować ponownie za chwilę');
         });
-
+    
         xmlHttp.addEventListener('timeout', function () {
             alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
         });
-
+    
         xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
     }
     else {
         alert("Brak dostępu do internetu");
     }
-    
+    //var dataFile = '{"rates":[{"saleValue": "4.3130", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
+    //
+    //var dane = JSON.parse(dataFile);
+    //// pętla do wyświetlania poszczególnych saleValue z pliku JSON
+    //for (var step = 0; step < dane.rates.length; step++) {
+    //    document.write("Kurs waluty w kantorze: " +dane.rates[step].name + " " + dane.rates[step].saleValue + "<br/>");
+    //}
 }
 
