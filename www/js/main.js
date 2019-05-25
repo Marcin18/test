@@ -143,10 +143,45 @@ function searchOffer() {
                 //var dataInfo = JSON.parse(this.responseText);
                 //alert('Wynik połączenia:' + this.responseText);
                 var dane = JSON.parse(this.responseText);
+                var body = document.getElementsByTagName('body')[0];
+                var tbl = document.createElement('table');
+                tbl.style.width = '100%';
+                tbl.setAttribute('border', '1');
+                var tbdy = document.createElement('tbody');
+                //koniec tworzenia tabeli
+                // tutaj dodawany jest nagłówek tabel
+                var trNav = document.createElement('tr');
+                var thNav = document.createElement('th');
+                thNav.appendChild(document.createTextNode('Kantor'));
+                trNav.appendChild(thNav);
+                var thNav2 = document.createElement('th');
+                thNav2.appendChild(document.createTextNode('Kurs'));
+                trNav.appendChild(thNav2);
+                tbdy.appendChild(trNav);
+                // konieć dodawania nagłowka tabeli
+
                 for (var step = 0; step < dane.rates.length; step++) {
-                    alert("W kantorze: " + dane.rates[step].name + " zapłacą: " + dane.rates[step].saleValue + " za kurs jednostkowy");
-                    //alert("W kantorze: <br/>" + dane.rates[step].name + " zapłacą <br/> " + dane.rates[step].saleValue + "<br/>"); // <br> wyświetlaja sie w alercie
+                    var tr = document.createElement('tr');
+                    for (var j = 0; j < 2; j++) {
+                        if (j == 0) {
+                            var td = document.createElement('td');
+                            td.appendChild(document.createTextNode(dane.rates[step].name));
+                            tr.appendChild(td);
+                        }
+                        else if (j == 1) {
+                            var td = document.createElement('td');
+                            td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                            tr.appendChild(td);
+                        }
+                    }
+                    tbdy.appendChild(tr);
                 }
+                tbl.appendChild(tbdy);
+                body.appendChild(tbl)
+                //for (var step = 0; step < dane.rates.length; step++) {
+                //    alert("W kantorze: " + dane.rates[step].name + " zapłacą: " + dane.rates[step].saleValue + " za kurs jednostkowy");
+                //    //alert("W kantorze: <br/>" + dane.rates[step].name + " zapłacą <br/> " + dane.rates[step].saleValue + "<br/>"); // <br> wyświetlaja sie w alercie
+                //}
             }
             else {
                 alert('Połączenie zakończyło się statusem ' + this.status);
@@ -166,12 +201,43 @@ function searchOffer() {
     else {
         alert("Brak dostępu do internetu");
     }
-    //var dataFile = '{"rates":[{"saleValue": "4.3130", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
-    //
-    //var dane = JSON.parse(dataFile);
-    //// pętla do wyświetlania poszczególnych saleValue z pliku JSON
-    //for (var step = 0; step < dane.rates.length; step++) {
-    //    document.write("Kurs waluty w kantorze: " +dane.rates[step].name + " " + dane.rates[step].saleValue + "<br/>");
-    //}
+    
+   // var dataFile = '{"rates":[{"saleValue": "4.3130", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
+   // var dane = JSON.parse(dataFile);
+    // rozpoczęcie tworzenia tabeli
+   //var body = document.getElementsByTagName('body')[0];
+   //var tbl = document.createElement('table');
+   //tbl.style.width = '100%';
+   //tbl.setAttribute('border', '1');
+   //var tbdy = document.createElement('tbody');
+   ////koniec tworzenia tabeli
+   //// tutaj dodawany jest nagłówek tabel
+   //var trNav = document.createElement('tr');
+   //var thNav = document.createElement('th');
+   //thNav.appendChild(document.createTextNode('Kantor'));
+   //trNav.appendChild(thNav);
+   //var thNav2 = document.createElement('th');
+   //thNav2.appendChild(document.createTextNode('Kurs'));
+   //trNav.appendChild(thNav2);
+   //tbdy.appendChild(trNav);
+   //// konieć dodawania nagłowka tabeli
+   //
+   //for (var step = 0; step < dane.rates.length; step++) {
+   //    var tr = document.createElement('tr');
+   //    for (var j = 0; j < 2; j++) {
+   //        if (j == 0) {
+   //            var td = document.createElement('td');
+   //            td.appendChild(document.createTextNode(dane.rates[step].name));
+   //            tr.appendChild(td);
+   //        }
+   //        else if (j == 1) {
+   //            var td = document.createElement('td');
+   //            td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+   //            tr.appendChild(td);
+   //        }
+   //    }
+   //    tbdy.appendChild(tr);
+   //}
+   //tbl.appendChild(tbdy);
+   //body.appendChild(tbl)
 }
-
