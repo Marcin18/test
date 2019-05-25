@@ -136,7 +136,7 @@ function searchOffer() {
         xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
         xmlHttp.setRequestHeader("content-length", "33");
         xmlHttp.setRequestHeader("Connection", "keep-alive");
-        xmlHttp.timeout = 4000;
+        xmlHttp.timeout = 5000;
     
         xmlHttp.addEventListener('load', function () {
             if (this.status === 200) {
@@ -151,24 +151,34 @@ function searchOffer() {
                 //koniec tworzenia tabeli
                 // tutaj dodawany jest nagłówek tabel
                 var trNav = document.createElement('tr');
+
                 var thNav = document.createElement('th');
                 thNav.appendChild(document.createTextNode('Kantor'));
                 trNav.appendChild(thNav);
                 var thNav2 = document.createElement('th');
-                thNav2.appendChild(document.createTextNode('Kurs'));
+                thNav2.appendChild(document.createTextNode('Ulica'));
                 trNav.appendChild(thNav2);
+                var thNav3 = document.createElement('th');
+                thNav3.appendChild(document.createTextNode('Kurs'));
+                trNav.appendChild(thNav3);
+
                 tbdy.appendChild(trNav);
                 // konieć dodawania nagłowka tabeli
 
                 for (var step = 0; step < dane.rates.length; step++) {
                     var tr = document.createElement('tr');
-                    for (var j = 0; j < 2; j++) {
+                    for (var j = 0; j < 3; j++) {
                         if (j == 0) {
                             var td = document.createElement('td');
                             td.appendChild(document.createTextNode(dane.rates[step].name));
                             tr.appendChild(td);
                         }
-                        else if (j == 1) {
+                        if (j == 1) {
+                            var td = document.createElement('td');
+                            td.appendChild(document.createTextNode(dane.rates[step].street));
+                            tr.appendChild(td);
+                        }
+                        else if (j == 2) {
                             var td = document.createElement('td');
                             td.appendChild(document.createTextNode(dane.rates[step].saleValue));
                             tr.appendChild(td);
