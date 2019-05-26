@@ -144,51 +144,45 @@ function searchOffer() {
                 document.getElementById('indexId').innerHTML = "";
                 var body = document.getElementsByTagName('body')[0];
                 var tbl = document.createElement('table');
-                tbl.style.width = '75%';
-                tbl.style.margin = 'auto';
+                tbl.style.width = '100%';
                 tbl.setAttribute("class", "table table-striped table-dark");
                 var tbdy = document.createElement('tbody');
-                // koniec tworzenia tabeli
+                //koniec tworzenia tabeli
                 // tutaj dodawany jest nagłówek tabel
                 var trNav = document.createElement('tr');
                 var thNav = document.createElement('th');
-                thNav.appendChild(document.createTextNode("Kantor"));
-                thNav.setAttribute("style", "text-align:center");
+                thNav.appendChild(document.createTextNode('Kantor'));
                 trNav.appendChild(thNav);
-                //this.createTableElementTH(trNav, "Kantor");
-                //this.createTableElementTH(trNav, "Ulica");
-                var thNav = document.createElement('th');
-                thNav.appendChild(document.createTextNode("Ulica"));
-                thNav.setAttribute("style", "text-align:center");
-                trNav.appendChild(thNav);
-                //this.createTableElementTH(trNav, "Kurs");
-                var thNav = document.createElement('th');
-                thNav.appendChild(document.createTextNode("Kurs"));
-                thNav.setAttribute("style", "text-align:center");
-                trNav.appendChild(thNav);
+                var thNav2 = document.createElement('th');
+                thNav2.appendChild(document.createTextNode('Ulica'));
+                trNav.appendChild(thNav2);
+                var thNav3 = document.createElement('th');
+                thNav3.appendChild(document.createTextNode('Kurs'));
+                trNav.appendChild(thNav3);
                 tbdy.appendChild(trNav);
                 // konieć dodawania nagłowka tabeli
                 for (var step = 0; step < dane.rates.length; step++) {
                     var tr = document.createElement('tr');
                     for (var j = 0; j < 3; j++) {
-                        if ((dane.rates[step].saleValue) != 0) {
-                            if (j == 0) {
-                                this.createTableElementTD(tr, dane.rates[step].name);
-                            }
-                            else if (j == 1) {
-                                this.createTableElementTD(tr, dane.rates[step].street);
-                            }
-                            else if (j == 2) {
-                                if (transactionQuantor === 'sale') {
-                                    this.createTableElementTD(tr, dane.rates[step].saleValue);
-                                }
-                                else {
-                                    this.createTableElementTD(tr, dane.rates[step].purchaseValue);
-                                }
-                            }
+                        if (j == 0) {
+                            var td = document.createElement('td');
+                            td.appendChild(document.createTextNode(dane.rates[step].name));
+                            tr.appendChild(td);
                         }
-                        else {
-                            j = 3;
+                        if (j == 1) {
+                            var td = document.createElement('td');
+                            td.appendChild(document.createTextNode(dane.rates[step].street));
+                            tr.appendChild(td);
+                        }
+                        else if (j == 2) {
+                            var td = document.createElement('td');
+                            if (transactionQuantor === 'sale') {
+                                td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                            }
+                            else {
+                                td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
+                            }
+                            tr.appendChild(td);
                         }
                     }
                     tbdy.appendChild(tr);
