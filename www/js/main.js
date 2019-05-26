@@ -141,8 +141,8 @@ function searchOffer() {
         xmlHttp.addEventListener('load', function () {
             if (this.status === 200) {
                 var dane = JSON.parse(this.responseText);
-                document.getElementById('indexId').innerHTML = "";
-                document.write("Jestem");
+                //document.getElementById('indexId').innerHTML = "";
+                //document.write("Jestem");
                 var body = document.getElementsByTagName('body')[0];
                 var tbl = document.createElement('table');
                 tbl.style.width = '75%';
