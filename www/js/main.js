@@ -211,7 +211,7 @@ function searchOffer() {
        });
    
        xmlHttp.addEventListener('error', function (e) {
-           alert('Wystąpił błąd połączenia, proszę spróbować ponownie za chwilę');
+           alert('Wystąpił błąd połączenia');
        });
    
        xmlHttp.addEventListener('timeout', function () {
@@ -303,12 +303,12 @@ function sortTable(transaction) {
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
             if (transaction === "sale") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
                 }
             } else {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
                 }
