@@ -308,12 +308,12 @@ function sortTable(transaction) {
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
             if (transaction === "sale") { // sortowanie w zależności od transakcji
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                if (x.innerHTML.value() > y.innerHTML.value()) {
                     shouldSwitch = true;
                     break;
                 }
             } else {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                if (x.innerHTML.value() < y.innerHTML.value()) {
                     shouldSwitch = true;
                     break;
                 }
