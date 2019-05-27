@@ -144,7 +144,8 @@ function searchOffer() {
                 document.getElementById('indexId').innerHTML = "";
                 var body = document.getElementsByTagName('body')[0];
                 var tbl = document.createElement('table');
-                tbl.style.width = '100%';
+                tbl.style.width = '75%';
+                tbl.style.margin = 'auto';
                 tbl.setAttribute("class", "table table-striped table-dark");
                 var tbdy = document.createElement('tbody');
                 //koniec tworzenia tabeli
