@@ -169,32 +169,37 @@ function searchOffer() {
                for (var step = 0; step < dane.rates.length; step++) {
                    var tr = document.createElement('tr');
                    for (var j = 0; j < 3; j++) {
-                       if (((dane.rates[step].saleValue) != 0) || ((dane.rates[step].purchaseValue) != 0 )){
-                           if (j == 0) {
-                               var td = document.createElement('td');
-                               td.appendChild(document.createTextNode(dane.rates[step].name));
-                               td.setAttribute("style", "text-align:center");
-                               tr.appendChild(td);
-                           }
-                           if (j == 1) {
-                               var td = document.createElement('td');
-                               td.appendChild(document.createTextNode(dane.rates[step].street));
-                               td.setAttribute("style", "text-align:center");
-                               tr.appendChild(td);
-                           }
-                           else if (j == 2) {
-                               var td = document.createElement('td');
-                               if (transactionQuantor === 'sale') {
-                                   td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                       if ((dane.rates[step].saleValue) != 0) {
+                           if ((dane.rates[step].purchaseValue) != 0) {
+                               if (j == 0) {
+                                   var td = document.createElement('td');
+                                   td.appendChild(document.createTextNode(dane.rates[step].name));
                                    td.setAttribute("style", "text-align:center");
+                                   tr.appendChild(td);
                                }
-                               else {
-                                   td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
+                               if (j == 1) {
+                                   var td = document.createElement('td');
+                                   td.appendChild(document.createTextNode(dane.rates[step].street));
                                    td.setAttribute("style", "text-align:center");
+                                   tr.appendChild(td);
                                }
-                               tr.appendChild(td);
+                               else if (j == 2) {
+                                   var td = document.createElement('td');
+                                   if (transactionQuantor === 'sale') {
+                                       td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                                       td.setAttribute("style", "text-align:center");
+                                   }
+                                   else {
+                                       td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
+                                       td.setAttribute("style", "text-align:center");
+                                   }
+                                   tr.appendChild(td);
+                               }
                            }
-                       }
+                           else {
+                               j = 3;
+                           }
+                        }  
                        else{
                            j = 3;
                        }
@@ -302,7 +307,7 @@ function sortTable(transaction) {
             shouldSwitch = false;
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
-            if (transaction === "sale") {
+            if (transaction === "sale") { // sortowanie w zależności od transakcji
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
