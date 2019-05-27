@@ -144,6 +144,7 @@ function searchOffer() {
                 document.getElementById('indexId').innerHTML = "";
                 var body = document.getElementsByTagName('body')[0];
                 var tbl = document.createElement('table');
+                tbl.setAttribute('id', "tableCurrency");
                 tbl.style.width = '75%';
                 tbl.style.margin = 'auto';
                 tbl.setAttribute("class", "table table-striped table-dark");
@@ -197,6 +198,7 @@ function searchOffer() {
                 }
                 tbl.appendChild(tbdy);
                 body.appendChild(tbl);
+                sortTable();
             }
             else {
                 alert('Połączenie zakończyło się statusem ' + this.status);
@@ -217,12 +219,13 @@ function searchOffer() {
         alert("Brak dostępu do internetu");
     }
     
-    //var dataFile = '{"rates":[{"saleValue": "4.310", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
-    //var dane = JSON.parse(dataFile);
-    // rozpoczęcie tworzenia tabeli
+   //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
+   //var dane = JSON.parse(dataFile);
+   // // rozpoczęcie tworzenia tabeli
    //document.getElementById('indexId').innerHTML = "";
    //var body = document.getElementsByTagName('body')[0];
    //var tbl = document.createElement('table');
+   //tbl.setAttribute('id', "tableCurrency");
    //tbl.style.width = '75%';
    //tbl.style.margin = 'auto';
    //tbl.setAttribute("class", "table table-striped table-dark");
@@ -261,7 +264,8 @@ function searchOffer() {
    //    tbdy.appendChild(tr);
    //}
    //tbl.appendChild(tbdy);
-   //body.appendChild(tbl)
+   //body.appendChild(tbl);
+   //sortTable();
 }
 
 // Metoda tworzy tytuły nagłówkowe dla odpowiednich kolumn.
@@ -280,4 +284,39 @@ function createTableElementTD(elementTR, value) {
     td.appendChild(document.createTextNode(value));
     td.setAttribute("style", "text-align:center");
     elementTR.appendChild(td);
+}
+
+function sortTable() {
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("tableCurrency");
+    switching = true;
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare,
+            one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("TD")[0];
+            y = rows[i + 1].getElementsByTagName("TD")[0];
+            // Check if the two rows should switch place:
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
 }
