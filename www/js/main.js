@@ -122,50 +122,50 @@ function searchOffer() {
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
    var currencyQuantor = f.options[f.selectedIndex].value;
-   if (this.internetConnection() === "true") {
-       let xmlHttp = new XMLHttpRequest();
-       xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-       xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-       xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-       xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-       xmlHttp.setRequestHeader("Accept", "*/*");
-       xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-       xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-       xmlHttp.setRequestHeader("Host", "quantor.pl");
-       xmlHttp.setRequestHeader("cookie", "device_view=full");
-       xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-       xmlHttp.setRequestHeader("content-length", "33");
-       xmlHttp.setRequestHeader("Connection", "keep-alive");
-       xmlHttp.timeout = 5000;
-   
-       xmlHttp.addEventListener('load', function () {
-           if (this.status === 200) {
-               var dane = JSON.parse(this.responseText);
-               createTable(dane, transactionQuantor);
-               sortTable(transactionQuantor);
-           }
-           else {
-               alert('Połączenie zakończyło się statusem ' + this.status);
-           }
-       });
-   
-       xmlHttp.addEventListener('error', function (e) {
-           alert('Wystąpił błąd połączenia');
-       });
-   
-       xmlHttp.addEventListener('timeout', function () {
-           alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
-       });
-   
-       xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
-   }
-   else {
-       alert("Brak dostępu do internetu");
-   }
+   //if (this.internetConnection() === "true") {
+   //    let xmlHttp = new XMLHttpRequest();
+   //    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+   //    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+   //    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   //    xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+   //    xmlHttp.setRequestHeader("Accept", "*/*");
+   //    xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+   //    xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+   //    xmlHttp.setRequestHeader("Host", "quantor.pl");
+   //    xmlHttp.setRequestHeader("cookie", "device_view=full");
+   //    xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+   //    xmlHttp.setRequestHeader("content-length", "33");
+   //    xmlHttp.setRequestHeader("Connection", "keep-alive");
+   //    xmlHttp.timeout = 5000;
+   //
+   //    xmlHttp.addEventListener('load', function () {
+   //        if (this.status === 200) {
+   //            var dane = JSON.parse(this.responseText);
+   //            createTable(dane, transactionQuantor);
+   //            sortTable(transactionQuantor);
+   //        }
+   //        else {
+   //            alert('Połączenie zakończyło się statusem ' + this.status);
+   //        }
+   //    });
+   //
+   //    xmlHttp.addEventListener('error', function (e) {
+   //        alert('Wystąpił błąd połączenia');
+   //    });
+   //
+   //    xmlHttp.addEventListener('timeout', function () {
+   //        alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+   //    });
+   //
+   //    xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
+   //}
+   //else {
+   //    alert("Brak dostępu do internetu");
+   //}
     
-    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
-    //createTable(JSON.parse(dataFile), transactionQuantor);
-    //sortTable(transactionQuantor);
+    var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
+    createTable(JSON.parse(dataFile), transactionQuantor);
+    sortTable(transactionQuantor);
 }
 
 function createTable(dane, transactionQuantor) {
@@ -180,18 +180,21 @@ function createTable(dane, transactionQuantor) {
     //koniec tworzenia tabeli
     // tutaj dodawany jest nagłówek tabel
     var trNav = document.createElement('tr');
-    var thNav = document.createElement('th');
-    thNav.appendChild(document.createTextNode('Kantor'));
-    thNav.setAttribute("style", "text-align:center");
-    trNav.appendChild(thNav);
-    var thNav2 = document.createElement('th');
-    thNav2.appendChild(document.createTextNode('Ulica'));
-    thNav2.setAttribute("style", "text-align:center");
-    trNav.appendChild(thNav2);
-    var thNav3 = document.createElement('th');
-    thNav3.appendChild(document.createTextNode('Kurs'));
-    thNav3.setAttribute("style", "text-align:center");
-    trNav.appendChild(thNav3);
+    createTableElementTH(trNav, 'Kantor');
+    //var thNav = document.createElement('th');
+    //thNav.appendChild(document.createTextNode('Kantor'));
+    //thNav.setAttribute("style", "text-align:center");
+    //trNav.appendChild(thNav);
+    createTableElementTH(trNav, 'Ulica');
+    //var thNav2 = document.createElement('th');    
+    //thNav2.appendChild(document.createTextNode('Ulica'));
+    //thNav2.setAttribute("style", "text-align:center");
+    //trNav.appendChild(thNav2);
+    createTableElementTH(trNav, 'Kurs');
+    //var thNav3 = document.createElement('th');
+    //thNav3.appendChild(document.createTextNode('Kurs'));
+    //thNav3.setAttribute("style", "text-align:center");
+    //trNav.appendChild(thNav3);
     tbdy.appendChild(trNav);
     // konieć dodawania nagłowka tabeli
     for (var step = 0; step < dane.rates.length; step++) {
