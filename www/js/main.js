@@ -140,7 +140,73 @@ function searchOffer() {
    
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
-               createTable(JSON.parse(this.responseText), transactionQuantor);
+               document.getElementById('indexId').innerHTML = "";
+               var body = document.getElementsByTagName('body')[0];
+               var tbl = document.createElement('table');
+               tbl.setAttribute('id', "tableCurrency");
+               tbl.style.width = '75%';
+               tbl.style.margin = 'auto';
+               tbl.setAttribute("class", "table table-striped table-dark");
+               var tbdy = document.createElement('tbody');
+               //koniec tworzenia tabeli
+               // tutaj dodawany jest nagłówek tabel
+               var trNav = document.createElement('tr');
+               var thNav = document.createElement('th');
+               thNav.appendChild(document.createTextNode('Kantor'));
+               thNav.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav);
+               var thNav2 = document.createElement('th');
+               thNav2.appendChild(document.createTextNode('Ulica'));
+               thNav2.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav2);
+               var thNav3 = document.createElement('th');
+               thNav3.appendChild(document.createTextNode('Kurs'));
+               thNav3.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav3);
+               tbdy.appendChild(trNav);
+               // konieć dodawania nagłowka tabeli
+               for (var step = 0; step < dane.rates.length; step++) {
+                   var tr = document.createElement('tr');
+                   for (var j = 0; j < 3; j++) {
+                       if ((dane.rates[step].saleValue) != 0) {
+                           if ((dane.rates[step].purchaseValue) != 0) {
+                               if (j == 0) {
+                                   var td = document.createElement('td');
+                                   td.appendChild(document.createTextNode(dane.rates[step].name));
+                                   td.setAttribute("style", "text-align:center");
+                                   tr.appendChild(td);
+                               }
+                               if (j == 1) {
+                                   var td = document.createElement('td');
+                                   td.appendChild(document.createTextNode(dane.rates[step].street));
+                                   td.setAttribute("style", "text-align:center");
+                                   tr.appendChild(td);
+                               }
+                               else if (j == 2) {
+                                   var td = document.createElement('td');
+                                   if (transactionQuantor === 'sale') {
+                                       td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                                       td.setAttribute("style", "text-align:center");
+                                   }
+                                   else {
+                                       td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
+                                       td.setAttribute("style", "text-align:center");
+                                   }
+                                   tr.appendChild(td);
+                               }
+                           }
+                           else {
+                               j = 3;
+                           }
+                       }
+                       else {
+                           j = 3;
+                       }
+                   }
+                   tbdy.appendChild(tr);
+               }
+               tbl.appendChild(tbdy);
+               body.appendChild(tbl);
                sortTable(transactionQuantor);
            }
            else {
