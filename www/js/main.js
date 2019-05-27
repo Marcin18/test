@@ -181,20 +181,8 @@ function createTable(dane, transactionQuantor) {
     // tutaj dodawany jest nagłówek tabel
     var trNav = document.createElement('tr');
     createTableElementTH(trNav, 'Kantor');
-    //var thNav = document.createElement('th');
-    //thNav.appendChild(document.createTextNode('Kantor'));
-    //thNav.setAttribute("style", "text-align:center");
-    //trNav.appendChild(thNav);
     createTableElementTH(trNav, 'Ulica');
-    //var thNav2 = document.createElement('th');    
-    //thNav2.appendChild(document.createTextNode('Ulica'));
-    //thNav2.setAttribute("style", "text-align:center");
-    //trNav.appendChild(thNav2);
     createTableElementTH(trNav, 'Kurs');
-    //var thNav3 = document.createElement('th');
-    //thNav3.appendChild(document.createTextNode('Kurs'));
-    //thNav3.setAttribute("style", "text-align:center");
-    //trNav.appendChild(thNav3);
     tbdy.appendChild(trNav);
     // konieć dodawania nagłowka tabeli
     for (var step = 0; step < dane.rates.length; step++) {
@@ -203,28 +191,18 @@ function createTable(dane, transactionQuantor) {
             if ((dane.rates[step].saleValue) != 0) {
                 if ((dane.rates[step].purchaseValue) != 0) {
                     if (j == 0) {
-                        var td = document.createElement('td');
-                        td.appendChild(document.createTextNode(dane.rates[step].name));
-                        td.setAttribute("style", "text-align:center");
-                        tr.appendChild(td);
+                        createTableElementTD(tr, dane.rates[step].name);
                     }
                     if (j == 1) {
-                        var td = document.createElement('td');
-                        td.appendChild(document.createTextNode(dane.rates[step].street));
-                        td.setAttribute("style", "text-align:center");
-                        tr.appendChild(td);
+                        createTableElementTD(tr, dane.rates[step].street);
                     }
                     else if (j == 2) {
-                        var td = document.createElement('td');
                         if (transactionQuantor === 'sale') {
-                            td.appendChild(document.createTextNode(dane.rates[step].saleValue));
-                            td.setAttribute("style", "text-align:center");
+                            createTableElementTD(tr, dane.rates[step].saleValue);
                         }
                         else {
-                            td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
-                            td.setAttribute("style", "text-align:center");
+                            createTableElementTD(tr, dane.rates[step].purchaseValue);
                         }
-                        tr.appendChild(td);
                     }
                 }
                 else {
