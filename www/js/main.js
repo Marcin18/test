@@ -118,108 +118,108 @@ function internetConnection() {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() { 
-    var e = document.getElementById("transaction");
-    var transactionQuantor = e.options[e.selectedIndex].value;
-    var f = document.getElementById("currency");
-    var currencyQuantor = f.options[f.selectedIndex].value;
-    if (this.internetConnection() === "true") {
-        let xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-        xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-        xmlHttp.setRequestHeader("Accept", "*/*");
-        xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-        xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-        xmlHttp.setRequestHeader("Host", "quantor.pl");
-        xmlHttp.setRequestHeader("cookie", "device_view=full");
-        xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-        xmlHttp.setRequestHeader("content-length", "33");
-        xmlHttp.setRequestHeader("Connection", "keep-alive");
-        xmlHttp.timeout = 5000;
+   var e = document.getElementById("transaction");
+   var transactionQuantor = e.options[e.selectedIndex].value;
+   var f = document.getElementById("currency");
+   var currencyQuantor = f.options[f.selectedIndex].value;
+   if (this.internetConnection() === "true") {
+       let xmlHttp = new XMLHttpRequest();
+       xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+       xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+       xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+       xmlHttp.setRequestHeader("Accept", "*/*");
+       xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+       xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+       xmlHttp.setRequestHeader("Host", "quantor.pl");
+       xmlHttp.setRequestHeader("cookie", "device_view=full");
+       xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+       xmlHttp.setRequestHeader("content-length", "33");
+       xmlHttp.setRequestHeader("Connection", "keep-alive");
+       xmlHttp.timeout = 5000;
+   
+       xmlHttp.addEventListener('load', function () {
+           if (this.status === 200) {
+               var dane = JSON.parse(this.responseText);
+               document.getElementById('indexId').innerHTML = "";
+               var body = document.getElementsByTagName('body')[0];
+               var tbl = document.createElement('table');
+               tbl.setAttribute('id', "tableCurrency");
+               tbl.style.width = '75%';
+               tbl.style.margin = 'auto';
+               tbl.setAttribute("class", "table table-striped table-dark");
+               var tbdy = document.createElement('tbody');
+               //koniec tworzenia tabeli
+               // tutaj dodawany jest nagłówek tabel
+               var trNav = document.createElement('tr');
+               var thNav = document.createElement('th');
+               thNav.appendChild(document.createTextNode('Kantor'));
+               thNav.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav);
+               var thNav2 = document.createElement('th');
+               thNav2.appendChild(document.createTextNode('Ulica'));
+               thNav2.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav2);
+               var thNav3 = document.createElement('th');
+               thNav3.appendChild(document.createTextNode('Kurs'));
+               thNav3.setAttribute("style", "text-align:center");
+               trNav.appendChild(thNav3);
+               tbdy.appendChild(trNav);
+               // konieć dodawania nagłowka tabeli
+               for (var step = 0; step < dane.rates.length; step++) {
+                   var tr = document.createElement('tr');
+                   for (var j = 0; j < 3; j++) {
+                       if (j == 0) {
+                           var td = document.createElement('td');
+                           td.appendChild(document.createTextNode(dane.rates[step].name));
+                           td.setAttribute("style", "text-align:center");
+                           tr.appendChild(td);
+                       }
+                       if (j == 1) {
+                           var td = document.createElement('td');
+                           td.appendChild(document.createTextNode(dane.rates[step].street));
+                           td.setAttribute("style", "text-align:center");
+                           tr.appendChild(td);
+                       }
+                       else if (j == 2) {
+                           var td = document.createElement('td');
+                           if (transactionQuantor === 'sale') {
+                               td.appendChild(document.createTextNode(dane.rates[step].saleValue));
+                               td.setAttribute("style", "text-align:center");
+                           }
+                           else {
+                               td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
+                               td.setAttribute("style", "text-align:center");
+                           }
+                           tr.appendChild(td);
+                       }
+                   }
+                   tbdy.appendChild(tr);
+               }
+               tbl.appendChild(tbdy);
+               body.appendChild(tbl);
+               sortTable();
+           }
+           else {
+               alert('Połączenie zakończyło się statusem ' + this.status);
+           }
+       });
+   
+       xmlHttp.addEventListener('error', function (e) {
+           alert('Wystąpił błąd połączenia, proszę spróbować ponownie za chwilę');
+       });
+   
+       xmlHttp.addEventListener('timeout', function () {
+           alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+       });
+   
+       xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
+   }
+   else {
+       alert("Brak dostępu do internetu");
+   }
     
-        xmlHttp.addEventListener('load', function () {
-            if (this.status === 200) {
-                var dane = JSON.parse(this.responseText);
-                document.getElementById('indexId').innerHTML = "";
-                var body = document.getElementsByTagName('body')[0];
-                var tbl = document.createElement('table');
-                tbl.setAttribute('id', "tableCurrency");
-                tbl.style.width = '75%';
-                tbl.style.margin = 'auto';
-                tbl.setAttribute("class", "table table-striped table-dark");
-                var tbdy = document.createElement('tbody');
-                //koniec tworzenia tabeli
-                // tutaj dodawany jest nagłówek tabel
-                var trNav = document.createElement('tr');
-                var thNav = document.createElement('th');
-                thNav.appendChild(document.createTextNode('Kantor'));
-                thNav.setAttribute("style", "text-align:center");
-                trNav.appendChild(thNav);
-                var thNav2 = document.createElement('th');
-                thNav2.appendChild(document.createTextNode('Ulica'));
-                thNav2.setAttribute("style", "text-align:center");
-                trNav.appendChild(thNav2);
-                var thNav3 = document.createElement('th');
-                thNav3.appendChild(document.createTextNode('Kurs'));
-                thNav3.setAttribute("style", "text-align:center");
-                trNav.appendChild(thNav3);
-                tbdy.appendChild(trNav);
-                // konieć dodawania nagłowka tabeli
-                for (var step = 0; step < dane.rates.length; step++) {
-                    var tr = document.createElement('tr');
-                    for (var j = 0; j < 3; j++) {
-                        if (j == 0) {
-                            var td = document.createElement('td');
-                            td.appendChild(document.createTextNode(dane.rates[step].name));
-                            td.setAttribute("style", "text-align:center");
-                            tr.appendChild(td);
-                        }
-                        if (j == 1) {
-                            var td = document.createElement('td');
-                            td.appendChild(document.createTextNode(dane.rates[step].street));
-                            td.setAttribute("style", "text-align:center");
-                            tr.appendChild(td);
-                        }
-                        else if (j == 2) {
-                            var td = document.createElement('td');
-                            if (transactionQuantor === 'sale') {
-                                td.appendChild(document.createTextNode(dane.rates[step].saleValue));
-                                td.setAttribute("style", "text-align:center");
-                            }
-                            else {
-                                td.appendChild(document.createTextNode(dane.rates[step].purchaseValue));
-                                td.setAttribute("style", "text-align:center");
-                            }
-                            tr.appendChild(td);
-                        }
-                    }
-                    tbdy.appendChild(tr);
-                }
-                tbl.appendChild(tbdy);
-                body.appendChild(tbl);
-                sortTable();
-            }
-            else {
-                alert('Połączenie zakończyło się statusem ' + this.status);
-            }
-        });
-    
-        xmlHttp.addEventListener('error', function (e) {
-            alert('Wystąpił błąd połączenia, proszę spróbować ponownie za chwilę');
-        });
-    
-        xmlHttp.addEventListener('timeout', function () {
-            alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
-        });
-    
-        xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
-    }
-    else {
-        alert("Brak dostępu do internetu");
-    }
-    
-   //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"}],"total":2}';
+   // var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
    //var dane = JSON.parse(dataFile);
    // // rozpoczęcie tworzenia tabeli
    //document.getElementById('indexId').innerHTML = "";
@@ -303,8 +303,8 @@ function sortTable() {
             shouldSwitch = false;
             /* Get the two elements you want to compare,
             one from current row and one from the next: */
-            x = rows[i].getElementsByTagName("TD")[0];
-            y = rows[i + 1].getElementsByTagName("TD")[0];
+            x = rows[i].getElementsByTagName("TD")[2];
+            y = rows[i + 1].getElementsByTagName("TD")[2];
             // Check if the two rows should switch place:
             if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                 // If so, mark as a switch and break the loop:
