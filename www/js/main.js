@@ -140,7 +140,7 @@ function searchOffer() {
    
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
-               createTable(JSON.parse(this.responseText));
+               createTable(JSON.parse(this.responseText), transactionQuantor);
            }
            else {
                alert('Połączenie zakończyło się statusem ' + this.status);
@@ -161,11 +161,11 @@ function searchOffer() {
        alert("Brak dostępu do internetu");
    }
     
-   // var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
-   // createTable(JSON.parse(dataFile));
+    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
+    //createTable(JSON.parse(dataFile), transactionQuantor);
 }
 
-function createTable(dane) {
+function createTable(dane, transactionQuantor) {
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
