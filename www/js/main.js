@@ -140,6 +140,8 @@ function searchOffer() {
    
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
+               //createTable(JSON.parse(this.responseText), transactionQuantor);
+               var dane = JSON.parse(this.responseText);
                document.getElementById('indexId').innerHTML = "";
                var body = document.getElementsByTagName('body')[0];
                var tbl = document.createElement('table');
