@@ -141,6 +141,7 @@ function searchOffer() {
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
                createTable(JSON.parse(this.responseText), transactionQuantor);
+               sortTable(transactionQuantor);
            }
            else {
                alert('Połączenie zakończyło się statusem ' + this.status);
@@ -233,7 +234,6 @@ function createTable(dane, transactionQuantor) {
     }
     tbl.appendChild(tbdy);
     body.appendChild(tbl);
-    sortTable(transactionQuantor);
 }
 
 // Metoda tworzy tytuły nagłówkowe dla odpowiednich kolumn.
