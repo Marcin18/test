@@ -163,11 +163,13 @@ function searchOffer() {
        alert("Brak dostępu do internetu");
    }
     
-    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.3630", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
+    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
     //sortTable(transactionQuantor);
 }
 
+// Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
+// Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
@@ -188,8 +190,8 @@ function createTable(dane, transactionQuantor) {
     for (var step = 0; step < dane.rates.length; step++) {
         var tr = document.createElement('tr');
         for (var j = 0; j < 3; j++) {
-            if ((dane.rates[step].saleValue) != 0) {
-                if ((dane.rates[step].purchaseValue) != 0) {
+            if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
+                if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (j == 0) {
                         createTableElementTD(tr, dane.rates[step].name);
                     }
@@ -197,7 +199,7 @@ function createTable(dane, transactionQuantor) {
                         createTableElementTD(tr, dane.rates[step].street);
                     }
                     else if (j == 2) {
-                        if (transactionQuantor === 'sale') {
+                        if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
                             createTableElementTD(tr, dane.rates[step].saleValue);
                         }
                         else {
@@ -237,6 +239,7 @@ function createTableElementTD(elementTR, value) {
     elementTR.appendChild(td);
 }
 
+
 function sortTable(transaction) {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("tableCurrency");
@@ -248,12 +251,13 @@ function sortTable(transaction) {
             shouldSwitch = false;
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
-            if (transaction === "sale") { // sortowanie w zależności od transakcji
+            if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
                 }
-            } else {
+            }
+            else {
                 if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
                     break;
@@ -261,7 +265,7 @@ function sortTable(transaction) {
             }
         }
         if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
             switching = true;
         }
     }
