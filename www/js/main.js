@@ -253,6 +253,7 @@ function sortTable(transaction) {
         rows = table.rows;
         for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
+            alert(rows.length);
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
             if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
@@ -271,9 +272,8 @@ function sortTable(transaction) {
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
             switching = true;
-            alert("posortowałem");
+            alert("posortowałem " + counter);
         }
-        alert(counter);
     }
     alert("ilosć operacji: " + counter);
 }
