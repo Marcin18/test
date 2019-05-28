@@ -251,10 +251,10 @@ function sortTable(transaction) {
         counter++;
         switching = false;
         rows = table.rows;
-        for (i = 1; i < (rows.length - 2); i++) {
+        for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[2];
-            y = rows[i + 1].getElementsByTagName("TD")[2];
+            x = rows[i].getElementsByTagName("TD")[1];
+            y = rows[i + 1].getElementsByTagName("TD")[1];
             if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
@@ -271,7 +271,6 @@ function sortTable(transaction) {
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
             switching = true;
-            alert("posortowałem " + counter);
         }
     }
     alert("ilosć operacji: " + counter);
