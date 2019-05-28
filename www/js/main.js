@@ -242,9 +242,11 @@ function createTableElementTD(elementTR, value) {
 
 function sortTable(transaction) {
     var table, rows, switching, i, x, y, shouldSwitch;
+    var counter = 0;
     table = document.getElementById("tableCurrency");
     switching = true;
     while (switching) {
+        counter++;
         switching = false;
         rows = table.rows;
         for (i = 1; i < (rows.length - 1); i++) {
@@ -269,4 +271,5 @@ function sortTable(transaction) {
             switching = true;
         }
     }
+    alert("ilosć operacji: " + counter);
 }
