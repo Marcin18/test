@@ -15,7 +15,6 @@
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
     };
-
     function onPause() {
         // TODO: Ta aplikacja została zawieszona, Zapisz tutaj stan aplikacji.
     };
@@ -117,14 +116,13 @@ function internetConnection() {
 }
 
 function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 5000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
 function onSuccess(pos) {
     var lat = pos.coords.latitude;
     var lng = pos.coords.longitude;
     alert("lat : " + lat + " lng : " + lng);
-
 }
 
 function onError(error) {
