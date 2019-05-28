@@ -251,9 +251,8 @@ function sortTable(transaction) {
         counter++;
         switching = false;
         rows = table.rows;
-        for (i = 1; i < (rows.length - 1); i++) {
+        for (i = 1; i < (rows.length - 2); i++) {
             shouldSwitch = false;
-            alert(rows.length);
             x = rows[i].getElementsByTagName("TD")[2];
             y = rows[i + 1].getElementsByTagName("TD")[2];
             if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
