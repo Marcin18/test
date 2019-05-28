@@ -271,8 +271,9 @@ function sortTable(transaction) {
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
             switching = true;
-            alert(counter);
+            alert("posortowałem");
         }
+        alert(counter);
     }
     alert("ilosć operacji: " + counter);
 }
