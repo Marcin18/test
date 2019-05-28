@@ -142,7 +142,9 @@ function searchOffer() {
            if (this.status === 200) {
                var dane = JSON.parse(this.responseText);
                createTable(dane, transactionQuantor);
+               alert("rozpoczynam sortowanie");
                sortTable(transactionQuantor);
+               alert("koncze sortowanie");
            }
            else {
                alert('Połączenie zakończyło się statusem ' + this.status);
@@ -269,6 +271,7 @@ function sortTable(transaction) {
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
             switching = true;
+            alert(counter);
         }
     }
     alert("ilosć operacji: " + counter);
