@@ -116,54 +116,72 @@ function internetConnection() {
     }
 }
 
+function onDeviceReady() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+function onSuccess(pos) {
+    var lat = pos.coords.latitude;
+    var lng = pos.coords.longitude;
+    alert("lat : " + lat + " lng : " + lng);
+
+}
+
+function onError(error) {
+    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+}
+
+
+
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() { 
-   var e = document.getElementById("transaction");
-   var transactionQuantor = e.options[e.selectedIndex].value;
-   var f = document.getElementById("currency");
-   var currencyQuantor = f.options[f.selectedIndex].value;
-   if (this.internetConnection() === "true") {
-       let xmlHttp = new XMLHttpRequest();
-       xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-       xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-       xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-       xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-       xmlHttp.setRequestHeader("Accept", "*/*");
-       xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-       xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-       xmlHttp.setRequestHeader("Host", "quantor.pl");
-       xmlHttp.setRequestHeader("cookie", "device_view=full");
-       xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-       xmlHttp.setRequestHeader("content-length", "33");
-       xmlHttp.setRequestHeader("Connection", "keep-alive");
-       xmlHttp.timeout = 5000;
-   
-       xmlHttp.addEventListener('load', function () {
-           if (this.status === 200) {
-               var dane = JSON.parse(this.responseText);
-               createTable(dane, transactionQuantor);
-               alert("rozpoczynam sortowanie");
-               sortTable(transactionQuantor);
-               alert("koncze sortowanie");
-           }
-           else {
-               alert('Połączenie zakończyło się statusem ' + this.status);
-           }
-       });
-   
-       xmlHttp.addEventListener('error', function (e) {
-           alert('Wystąpił błąd połączenia');
-       });
-   
-       xmlHttp.addEventListener('timeout', function () {
-           alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
-       });
-   
-       xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
-   }
-   else {
-       alert("Brak dostępu do internetu");
-   }
+    onDeviceReady();
+   //var e = document.getElementById("transaction");
+   //var transactionQuantor = e.options[e.selectedIndex].value;
+   //var f = document.getElementById("currency");
+   //var currencyQuantor = f.options[f.selectedIndex].value;
+   //if (this.internetConnection() === "true") {
+   //    let xmlHttp = new XMLHttpRequest();
+   //    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+   //    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+   //    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   //    xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+   //    xmlHttp.setRequestHeader("Accept", "*/*");
+   //    xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+   //    xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+   //    xmlHttp.setRequestHeader("Host", "quantor.pl");
+   //    xmlHttp.setRequestHeader("cookie", "device_view=full");
+   //    xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+   //    xmlHttp.setRequestHeader("content-length", "33");
+   //    xmlHttp.setRequestHeader("Connection", "keep-alive");
+   //    xmlHttp.timeout = 5000;
+   //
+   //    xmlHttp.addEventListener('load', function () {
+   //        if (this.status === 200) {
+   //            var dane = JSON.parse(this.responseText);
+   //            createTable(dane, transactionQuantor);
+   //            alert("rozpoczynam sortowanie");
+   //            sortTable(transactionQuantor);
+   //            alert("koncze sortowanie");
+   //        }
+   //        else {
+   //            alert('Połączenie zakończyło się statusem ' + this.status);
+   //        }
+   //    });
+   //
+   //    xmlHttp.addEventListener('error', function (e) {
+   //        alert('Wystąpił błąd połączenia');
+   //    });
+   //
+   //    xmlHttp.addEventListener('timeout', function () {
+   //        alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+   //    });
+   //
+   //    xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
+   //}
+   //else {
+   //    alert("Brak dostępu do internetu");
+   //}
     
     //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
