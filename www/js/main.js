@@ -132,8 +132,9 @@ function onError(error) {
 
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
-function searchOffer() { 
-    onDeviceReady();
+function searchOffer() {
+    window.open("https://maps.google.com/maps?daddr=49.46800006494457,17.11514008755796&amp;ll=");
+    //onDeviceReady();
    //var e = document.getElementById("transaction");
    //var transactionQuantor = e.options[e.selectedIndex].value;
    //var f = document.getElementById("currency");
