@@ -121,8 +121,8 @@ function onDeviceReady() {
 
 function onSuccess(pos) {
     var lat = pos.coords.latitude;
-    var lng = pos.coords.longitude;
-    alert("lat : " + lat + " lng : " + lng);
+    var lon = pos.coords.longitude;
+    alert("lat : " + lat + " lng : " + lon);
 }
 
 function onError(error) {
@@ -131,17 +131,14 @@ function onError(error) {
 
 // Metoda otwiera aplikacje Google Maps i wskazuje docelowe miejsce.
 // Metoda na wejściu otrzymuje dwie zmienne: długość lat oraz długość lon.
-function showGoogleMaps(lat, lot) {
-    if (confirm("Chcesz wyznaczyć trasę do kantoru w Google Maps?")) {
-        window.open("https://maps.google.com/maps?daddr=" + lat + "," + lot + "&amp;ll=");
-    }
+function showGoogleMaps(lat, lon) {
+    //if (confirm("Uwaga, nastąpi przekierowanie na Google Maps. Kontynuować?")) {
+        window.open("https://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=");
+   // }
 }
-
-
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-    //showGoogleMaps(49.46800006494457, 17.11514008755796);
     //onDeviceReady();
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
@@ -190,7 +187,7 @@ function searchOffer() {
        alert("Brak dostępu do internetu");
    }
     
-    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
+    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
     //sortTable(transactionQuantor);
 }
@@ -220,10 +217,10 @@ function createTable(dane, transactionQuantor) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (j == 0) {
-                        createTableElementTDwithGPS(tr, dane.rates[step].name,dane.rates[step].lat,dane.rates[step].lng);
+                        createTableElementTD(tr, dane.rates[step].name);
                     }
                     if (j == 1) {
-                        createTableElementTD(tr, dane.rates[step].street);
+                        createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
                     }
                     else if (j == 2) {
                         if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
@@ -268,11 +265,14 @@ function createTableElementTD(elementTR, value) {
 
 // Metoda uzupełnia danymi odpowiednią kolumne.
 // Na wejściu metoda otrzymuje element nadrzędny tabeli (wiersz), wartość do wpisania oraz współrzędne GPS.
-function createTableElementTDwithGPS(elementTR, value, lat, lot) {
+function createTableElementTDwithGPS(elementTR, value, lat, lon) {
     var td = document.createElement('td');
-    td.appendChild(document.createTextNode(value));
+    td.appendChild(document.createTextNode(value + " "));
     td.setAttribute("style", "text-align:center;text-decoration:underline");
-    td.setAttribute("onclick", "showGoogleMaps(" + lat + "," + lot+")");
+    td.setAttribute("onclick", "showGoogleMaps(" + lat + "," + lon + ")");
+    var img = document.createElement("img");
+    img.src = "images/gps.png";
+    td.appendChild(img);
     elementTR.appendChild(td);
 }
 
