@@ -218,7 +218,7 @@ function createTable(dane, transactionQuantor) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (j == 0) {
-                        createTableElementTDwithGPS(tr, dane.rates[step].name,dane.rates[step].lat,dane.rates[step].lot);
+                        createTableElementTDwithGPS(tr, dane.rates[step].name,dane.rates[step].lat,dane.rates[step].lng);
                     }
                     if (j == 1) {
                         createTableElementTD(tr, dane.rates[step].street);
