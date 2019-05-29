@@ -132,7 +132,9 @@ function onError(error) {
 // Metoda otwiera aplikacje Google Maps i wskazuje docelowe miejsce.
 // Metoda na wejściu otrzymuje dwie zmienne: długość lat oraz długość lon.
 function showGoogleMaps(lat, lot) {
-    window.open("https://maps.google.com/maps?daddr="+lat+","+lot+"&amp;ll=");
+    if (confirm("Chcesz wyznaczyć trasę do kantoru w Google Maps?")) {
+        window.open("https://maps.google.com/maps?daddr=" + lat + "," + lot + "&amp;ll=");
+    }
 }
 
 
