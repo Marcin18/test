@@ -129,11 +129,15 @@ function onError(error) {
     alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
 }
 
+function showGoogleMaps(lat, lon) {
+    window.open("https://maps.google.com/maps?daddr="+lat+","+lon+"&amp;ll=");
+}
+
 
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-    window.open("https://maps.google.com/maps?daddr=49.46800006494457,17.11514008755796&amp;ll=");
+    showGoogleMaps(49.46800006494457, 17.11514008755796);
     //onDeviceReady();
    //var e = document.getElementById("transaction");
    //var transactionQuantor = e.options[e.selectedIndex].value;
