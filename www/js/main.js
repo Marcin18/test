@@ -124,6 +124,9 @@ function onDeviceReady() {
 function onSuccess(pos) {
     lat = pos.coords.latitude;
     lng = pos.coords.longitude;
+    alert("jestem w Onsuccess");
+    alert(lat + lng);
+    alert(pos.coords.latitude + pos.coords.longitude);
 }
 
 function onError(error) {
