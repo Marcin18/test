@@ -120,72 +120,98 @@ function onDeviceReady() {
 }
 
 function onSuccess(pos) {
-    var lat = pos.coords.latitude;
-    var lon = pos.coords.longitude;
-    alert("lat : " + lat + " lng : " + lon);
+    var arrayGPS = [pos.coords.latitude, pos.coords.longitude];
+    return (arrayGPS);
 }
 
 function onError(error) {
     alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    return "brak danych";
 }
+
+// Oblicza dystans w linii prostej między dwoma punktami.
+// Na wejściu metoda otrzymuje dane lokalizacyjne dwóch punktów.
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; 
+    var dLat = deg2rad(lat2 - lat1); 
+    var dLon = deg2rad(lon2 - lon1);
+    var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c; // Distance in km
+    d = Round(d, 2);
+    alert(d);
+}
+
+// funkcja zaokrągla wartości po przecinku.
+// na wejściu metoda 
+function Round(n, k) {
+    var factor = Math.pow(10, k);
+    return Math.round(n * factor) / factor;
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180)
+}
+
 
 // Metoda otwiera aplikacje Google Maps i wskazuje docelowe miejsce.
 // Metoda na wejściu otrzymuje dwie zmienne: długość lat oraz długość lon.
 function showGoogleMaps(lat, lon) {
-    //if (confirm("Uwaga, nastąpi przekierowanie na Google Maps. Kontynuować?")) {
-        window.open("https://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=");
-   // }
+    window.open("https://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=");
 }
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-   onDeviceReady();
-   //var e = document.getElementById("transaction");
-   //var transactionQuantor = e.options[e.selectedIndex].value;
-   //var f = document.getElementById("currency");
-   //var currencyQuantor = f.options[f.selectedIndex].value;
-   //if (this.internetConnection() === "true") {
-   //    let xmlHttp = new XMLHttpRequest();
-   //    xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-   //    xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-   //    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-   //    xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-   //    xmlHttp.setRequestHeader("Accept", "*/*");
-   //    xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-   //    xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-   //    xmlHttp.setRequestHeader("Host", "quantor.pl");
-   //    xmlHttp.setRequestHeader("cookie", "device_view=full");
-   //    xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-   //    xmlHttp.setRequestHeader("content-length", "33");
-   //    xmlHttp.setRequestHeader("Connection", "keep-alive");
-   //    xmlHttp.timeout = 5000;
-   //
-   //    xmlHttp.addEventListener('load', function () {
-   //        if (this.status === 200) {
-   //            var dane = JSON.parse(this.responseText);
-   //            createTable(dane, transactionQuantor);
-   //            alert("rozpoczynam sortowanie");
-   //            sortTable(transactionQuantor);
-   //            alert("koncze sortowanie");
-   //        }
-   //        else {
-   //            alert('Połączenie zakończyło się statusem ' + this.status);
-   //        }
-   //    });
-   //
-   //    xmlHttp.addEventListener('error', function (e) {
-   //        alert('Wystąpił błąd połączenia');
-   //    });
-   //
-   //    xmlHttp.addEventListener('timeout', function () {
-   //        alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
-   //    });
-   //
-   //    xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
-   //}
-   //else {
-   //    alert("Brak dostępu do internetu");
-   //}
+   var e = document.getElementById("transaction");
+   var transactionQuantor = e.options[e.selectedIndex].value;
+   var f = document.getElementById("currency");
+   var currencyQuantor = f.options[f.selectedIndex].value;
+   if (this.internetConnection() === "true") {
+       let xmlHttp = new XMLHttpRequest();
+       xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+       xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+       xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+       xmlHttp.setRequestHeader("Accept", "*/*");
+       xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+       xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+       xmlHttp.setRequestHeader("Host", "quantor.pl");
+       xmlHttp.setRequestHeader("cookie", "device_view=full");
+       xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+       xmlHttp.setRequestHeader("content-length", "33");
+       xmlHttp.setRequestHeader("Connection", "keep-alive");
+       xmlHttp.timeout = 5000;
+   
+       xmlHttp.addEventListener('load', function () {
+           if (this.status === 200) {
+               var dane = JSON.parse(this.responseText);
+               createTable(dane, transactionQuantor);
+               alert("rozpoczynam sortowanie");
+               sortTable(transactionQuantor);
+               alert("koncze sortowanie");
+           }
+           else {
+               alert('Połączenie zakończyło się statusem ' + this.status);
+           }
+       });
+   
+       xmlHttp.addEventListener('error', function (e) {
+           alert('Wystąpił błąd połączenia');
+       });
+   
+       xmlHttp.addEventListener('timeout', function () {
+           alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+       });
+   
+       xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
+   }
+   else {
+       alert("Brak dostępu do internetu");
+   }
     
     //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
@@ -195,6 +221,8 @@ function searchOffer() {
 // Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
 // Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
+    var GPSArray = onDeviceReady();
+    alert(GPSArray[0], GPSArray[1]);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
@@ -209,6 +237,7 @@ function createTable(dane, transactionQuantor) {
     createTableElementTH(trNav, 'Kantor');
     createTableElementTH(trNav, 'Ulica');
     createTableElementTH(trNav, 'Kurs');
+    createTableElementTH(trNav, 'Od Ciebie');
     tbdy.appendChild(trNav);
     // konieć dodawania nagłowka tabeli
     for (var step = 0; step < dane.rates.length; step++) {
@@ -220,6 +249,7 @@ function createTable(dane, transactionQuantor) {
                         createTableElementTD(tr, dane.rates[step].name);
                     }
                     if (j == 1) {
+                        //getDistanceFromLatLonInKm(50.027789, 20.945187, 50.030550, 20.945958);
                         createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
                     }
                     else if (j == 2) {
