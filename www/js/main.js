@@ -172,9 +172,6 @@ function showGoogleMaps(lat, lon) {
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
     onDeviceReady();
-    setTimeout(function () {
-        //do what you need here
-    }, 5000);
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
