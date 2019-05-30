@@ -1,4 +1,6 @@
-﻿(function () {
+﻿var lat;
+var lng;
+(function () {
     "use strict";
 
     document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
@@ -120,8 +122,8 @@ function onDeviceReady() {
 }
 
 function onSuccess(pos) {
-    var arrayGPS = [pos.coords.latitude, pos.coords.longitude];
-    return (arrayGPS);
+    lat = pos.coords.latitude;
+    lng = pos.coords.longitude;
 }
 
 function onError(error) {
@@ -221,8 +223,8 @@ function searchOffer() {
 // Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
 // Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
-    var GPSArray = onDeviceReady();
-    alert(GPSArray[0], GPSArray[1]);
+    onDeviceReady();
+    alert(lat +" " + lon);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
