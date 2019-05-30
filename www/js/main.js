@@ -118,7 +118,7 @@ function internetConnection() {
 }
 
 function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 1000, maximumAge: 10000, enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 5000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
 function onSuccess(pos) {
@@ -171,7 +171,10 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-   onDeviceReady();
+    onDeviceReady();
+    setTimeout(function () {
+        //do what you need here
+    }, 5000);
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
