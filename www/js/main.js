@@ -226,7 +226,7 @@ function searchOffer() {
 function createTable(dane, transactionQuantor) {
     onDeviceReady();
     alert("pobrałem dane");
-    alert(lat +" " + lon);
+    alert(lat +" " + lng);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
