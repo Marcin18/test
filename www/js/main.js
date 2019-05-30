@@ -125,8 +125,8 @@ function onSuccess(pos) {
     lat = pos.coords.latitude;
     lng = pos.coords.longitude;
     alert("jestem w Onsuccess");
-    alert(lat + lng);
-    alert(pos.coords.latitude + pos.coords.longitude);
+    //alert(lat + lng);
+    //alert(pos.coords.latitude + pos.coords.longitude);
 }
 
 function onError(error) {
@@ -171,6 +171,7 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
+   onDeviceReady();
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
@@ -227,9 +228,8 @@ function searchOffer() {
 // Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
 // Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
-    onDeviceReady();
-    alert("pobrałem dane");
-    alert(lat +" " + lng);
+    //alert("pobrałem dane");
+    alert(lat + " " + lng);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
