@@ -124,9 +124,6 @@ function onDeviceReady() {
 function onSuccess(pos) {
     lat = pos.coords.latitude;
     lng = pos.coords.longitude;
-    alert("jestem w Onsuccess");
-    //alert(lat + lng);
-    //alert(pos.coords.latitude + pos.coords.longitude);
 }
 
 function onError(error) {
@@ -171,7 +168,7 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-    onDeviceReady();
+   onDeviceReady();
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
@@ -249,14 +246,13 @@ function createTable(dane, transactionQuantor) {
     // konieć dodawania nagłowka tabeli
     for (var step = 0; step < dane.rates.length; step++) {
         var tr = document.createElement('tr');
-        for (var j = 0; j < 3; j++) {
+        for (var j = 0; j < 4; j++) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (j == 0) {
                         createTableElementTD(tr, dane.rates[step].name);
                     }
-                    if (j == 1) {
-                        //getDistanceFromLatLonInKm(50.027789, 20.945187, 50.030550, 20.945958);
+                    else if (j == 1) {
                         createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
                     }
                     else if (j == 2) {
@@ -267,13 +263,17 @@ function createTable(dane, transactionQuantor) {
                             createTableElementTD(tr, dane.rates[step].purchaseValue);
                         }
                     }
+                    else if (j == 3) {
+                        var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
+                        createTableElementTD(tr, distance);
+                    }
                 }
                 else {
-                    j = 3;
+                    j = 4;
                 }
             }
             else {
-                j = 3;
+                j = 4;
             }
         }
         tbdy.appendChild(tr);
