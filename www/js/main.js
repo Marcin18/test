@@ -191,6 +191,7 @@ function searchOffer() {
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
                var dane = JSON.parse(this.responseText);
+               alert("Tworzę tabele");
                createTable(dane, transactionQuantor);
                alert("rozpoczynam sortowanie");
                sortTable(transactionQuantor);
@@ -224,6 +225,7 @@ function searchOffer() {
 // Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
     onDeviceReady();
+    alert("pobrałem dane");
     alert(lat +" " + lon);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
