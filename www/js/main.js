@@ -118,7 +118,7 @@ function internetConnection() {
 }
 
 function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 5000, maximumAge: 10000, enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 1000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
 function onSuccess(pos) {
