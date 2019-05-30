@@ -225,8 +225,6 @@ function searchOffer() {
 // Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
 // Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
 function createTable(dane, transactionQuantor) {
-    //alert("pobrałem dane");
-    alert(lat + " " + lng);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     var tbl = document.createElement('table');
@@ -265,7 +263,7 @@ function createTable(dane, transactionQuantor) {
                     }
                     else if (j == 3) {
                         var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
-                        createTableElementTD(tr, distance);
+                        createTableElementTD(tr, distance + " km");
                     }
                 }
                 else {
@@ -325,8 +323,8 @@ function sortTable(transaction) {
         rows = table.rows;
         for (i = 1; i < (rows.length - 1); i++) {
             shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[1];
-            y = rows[i + 1].getElementsByTagName("TD")[1];
+            x = rows[i].getElementsByTagName("TD")[3];
+            y = rows[i + 1].getElementsByTagName("TD")[3];
             if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     shouldSwitch = true;
