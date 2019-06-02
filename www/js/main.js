@@ -221,12 +221,14 @@ function searchOffer() {
 
 function saveJSON(dane, transactionQuantor) {
     var result = new Array();
+    var counterArray = -1;
     for (var step = 0; step < dane.rates.length; step++) {
         var myObject = new Object();
         for (var counter = 0; counter < 4; counter++) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (counter == 0) {
+                        counterArray++;
                         myObject.name = dane.rates[step].name;
                     }
                     else if (counter == 1) {
@@ -257,8 +259,14 @@ function saveJSON(dane, transactionQuantor) {
                 counter = 4;
             }
         }
-        result[step] = myObject;
-        delete myObject;
+        if (counterArray != -1) {
+            if ((dane.rates[step].saleValue) != 0) {
+                if ((dane.rates[step].purchaseValue) != 0) {
+                    result[counterArray] = myObject;
+                    delete myObject;
+                }
+            }
+        }
     }
     objectJSON = JSON.stringify(result);
     alert(objectJSON);
