@@ -1,5 +1,5 @@
-﻿var lat;
-var lng;
+﻿var lat = 0;
+var lng = 0;
 (function () {
     "use strict";
 
@@ -17,6 +17,7 @@ var lng;
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
     };
+
     function onPause() {
         // TODO: Ta aplikacja została zawieszona, Zapisz tutaj stan aplikacji.
     };
@@ -38,26 +39,43 @@ function menuFunction() {
 
 function includeHTML() {
     var z, i, elmnt, file, xhttp;
+    /*loop through a collection of all HTML elements:*/
     z = document.getElementsByTagName("*");
     for (i = 0; i < z.length; i++) {
         elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
         file = elmnt.getAttribute("w3-include-html");
         if (file) {
+            /*make an HTTP request using the attribute value as the file name:*/
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-                    if (this.status == 404) { elmnt.innerHTML = "Ups. Problem wczytywania menu"; }
+                    if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                    /*remove the attribute, and call this function once more:*/
                     elmnt.removeAttribute("w3-include-html");
                     includeHTML();
                 }
             }
             xhttp.open("GET", file, true);
             xhttp.send();
+            /*exit the function:*/
             return;
         }
     }
 };
+
+// funkcja obsługuje proces kliknięcia w menu wyszukiwania
+function expand() {
+  $(".search").toggleClass("close");
+  $(".input").toggleClass("square");
+  if ($('.search').hasClass('close')) {
+    $('input').focus();
+  } else {
+    $('input').blur();
+  }
+}
+$('button').on('click', expand);
 
 // funkcja ustawia w dropdown wybraną wartość przez użytkownika
 function getItem() {
@@ -65,6 +83,22 @@ function getItem() {
         $(this).parents(".dropdown").find('.btn').html($(this).text());
         $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
     });
+}
+
+// funkcja filtrujaca wyszukiwarkę.
+function filterSearch() {
+    let filterValue = document.getElementById('filterInput').value.toUpperCase(); // pobranie wartości z wyszukiwarki
+    let ul = document.getElementById('tips'); // pobranie elementu ul
+    let li = ul.querySelectorAll('li.name-item'); // pobranie listy podpowiedzi
+    // Pętla wyświetlająca przefiltrowane podpowiedzi
+    for (let i = 0; i < li.length; i++) {
+        let a = li[i].getElementsByTagName('a')[0];
+        if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+            li[i].style.display = '';
+        } else {
+            li[i].style.display = 'none';
+        }
+    }
 }
 
 // funkcja wyświetla lub nie wyświetla danego diva.
@@ -81,23 +115,21 @@ function getData() {
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd' });
 }
 
-// plik javaScript do definowania funkcji
-// metody objete w funkcjach jss 
 function logIn() {
-    $(".log-in").click(function () {
-        $(".signIn").addClass("active-dx");
-        $(".signUp").addClass("inactive-sx");
-        $(".signUp").removeClass("active-sx");
-        $(".signIn").removeClass("inactive-dx");
-    });
-}
-
-function signIn() {
     $(".back").click(function () {
         $(".signUp").addClass("active-sx");
         $(".signIn").addClass("inactive-dx");
         $(".signIn").removeClass("active-dx");
         $(".signUp").removeClass("inactive-sx");
+    });
+}
+
+function signIn() {
+    $(".log-in").click(function () {
+        $(".signIn").addClass("active-dx");
+        $(".signUp").addClass("inactive-sx");
+        $(".signUp").removeClass("active-sx");
+        $(".signIn").removeClass("inactive-dx");
     });
 }
 
@@ -122,8 +154,7 @@ function onSuccess(pos) {
 }
 
 function onError(error) {
-    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
-    return "brak danych";
+    //alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
 }
 
 // Oblicza dystans w linii prostej między dwoma punktami.
@@ -161,53 +192,55 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-   //onDeviceReady();
-   var e = document.getElementById("transaction");
-   var transactionQuantor = e.options[e.selectedIndex].value;
-   var f = document.getElementById("currency");
-   var currencyQuantor = f.options[f.selectedIndex].value;
-   if (this.internetConnection() === "true") {
-       let xmlHttp = new XMLHttpRequest();
-       xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
-       xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
-       xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-       xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
-       xmlHttp.setRequestHeader("Accept", "*/*");
-       xmlHttp.setRequestHeader("Cache-Control", "no-cache");
-       xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
-       xmlHttp.setRequestHeader("Host", "quantor.pl");
-       xmlHttp.setRequestHeader("cookie", "device_view=full");
-       xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
-       xmlHttp.setRequestHeader("content-length", "33");
-       xmlHttp.setRequestHeader("Connection", "keep-alive");
-       xmlHttp.timeout = 5000;
+    onDeviceReady();
+    if (lat != 0 && lng != 0) {
+        var e = document.getElementById("transaction");
+        var transactionQuantor = e.options[e.selectedIndex].value;
+        var f = document.getElementById("currency");
+        var currencyQuantor = f.options[f.selectedIndex].value;
+        if (this.internetConnection() === "true") {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("POST", "https://quantor.pl/api/cantormap", true); // false for synchronous request
+            xmlHttp.setRequestHeader("X-AUTH-TOKEN", "zuBtJ6gS7Vh7Wrcf");
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.setRequestHeader("User-Agent", "PostmanRuntime/7.11.0");
+            xmlHttp.setRequestHeader("Accept", "*/*");
+            xmlHttp.setRequestHeader("Cache-Control", "no-cache");
+            xmlHttp.setRequestHeader("Postman-Token", "174e13cd-4edf-4598-9953-169b3f1f2eab,430aecde-2f62-4b3e-a8cf-024b7d64a687");
+            xmlHttp.setRequestHeader("Host", "quantor.pl");
+            xmlHttp.setRequestHeader("cookie", "device_view=full");
+            xmlHttp.setRequestHeader("accept-encoding", "gzip, deflate");
+            xmlHttp.setRequestHeader("content-length", "33");
+            xmlHttp.setRequestHeader("Connection", "keep-alive");
+            xmlHttp.timeout = 5000;
+
+            xmlHttp.addEventListener('load', function () {
+                if (this.status === 200) {
+                    getValue(JSON.parse(this.responseText), transactionQuantor);
+                }
+                else {
+                    alert('Połączenie zakończyło się statusem ' + this.status + ' spróbuj ponownie za chwile');
+                }
+            });
+
+            xmlHttp.addEventListener('error', function (e) {
+                alert('Wystąpił błąd połączenia');
+            });
+
+            xmlHttp.addEventListener('timeout', function () {
+                alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+            });
+
+            xmlHttp.send("currency=" + currencyQuantor + "&transaction=" + transactionQuantor);
+        }
+        else {
+            alert("Brak dostępu do internetu");
+        }
+    }
+    else {
+        alert("Włącz urządzenie GPS");
+    }
    
-       xmlHttp.addEventListener('load', function () {
-           if (this.status === 200) {
-               getValue(JSON.parse(this.responseText), transactionQuantor);
-           }
-           else {
-               alert('Połączenie zakończyło się statusem ' + this.status + ' spróbuj ponownie za chwile');
-           }
-       });
-   
-       xmlHttp.addEventListener('error', function (e) {
-           alert('Wystąpił błąd połączenia');
-       });
-   
-       xmlHttp.addEventListener('timeout', function () {
-           alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
-       });
-   
-       xmlHttp.send("currency=" + currencyQuantor+"&transaction="+transactionQuantor);
-   }
-   else {
-       alert("Brak dostępu do internetu");
-   }
-    
-   //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
-    //createTable(JSON.parse(dataFile), transactionQuantor);
-    //showDataJSON(JSON.parse(dataFile), transactionQuantor);
 }
 
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
@@ -238,8 +271,6 @@ function getValue(dane, transactionQuantor) {
                         }
                     }
                     else if (counter == 3) {
-                        //lat = 50.2585222;
-                        //lng = 20.2585241;
                         var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
                         myObject.distance = distance;
                     }
@@ -402,4 +433,19 @@ function createElementDivWithGPS(mainDiv, nameClass, value, lat, lng) {
     img.src = "images/gps.png";
     div.appendChild(img);
     mainDiv.appendChild(div);
+}
+
+//------------------------------------------ skrypty do dodawania transakcji-----
+
+function addTransaction() {
+    var tran = document.getElementById("transactionEnd");
+    var transactionQuantor = tran.options[tran.selectedIndex].value;
+    var curr = document.getElementById("currencyEnd");
+    var currencyQuantor = curr.options[curr.selectedIndex].value;
+    var cant = document.getElementById("cantorEnd");
+    var cantor = cant.options[cant.selectedIndex].value;
+    var howMuch = document.getElementById("howMuch").value;
+    //var howMuch = howM.options[howM.selectedIndex].value;
+
+    alert(transactionQuantor + " " + currencyQuantor + " " + cantor + " " + howMuch);
 }
