@@ -159,7 +159,6 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
-
 // Metoda otwiera aplikacje Google Maps i wskazuje docelowe miejsce.
 // Metoda na wejściu otrzymuje dwie zmienne: długość lat oraz długość lon.
 function showGoogleMaps(lat, lon) {
@@ -191,8 +190,6 @@ function searchOffer() {
    
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
-               //var dane = JSON.parse(this.responseText);
-               //showDataJSON(dane, transactionQuantor);
                saveJSON(JSON.parse(this.responseText), transactionQuantor);
            }
            else {
@@ -270,46 +267,82 @@ function saveJSON(dane, transactionQuantor) {
     }
     objectJSON = JSON.stringify(result);
     alert(objectJSON);
-    sortJSON(JSON.parse(objectJSON));
+    sortJSON(JSON.parse(objectJSON), transactionQuantor);
     delete result;
 }
 
 
-function sortJSON(dane) {
+function sortJSON(dane, transactionQuantor) {
     var check = 1;
     do {
         check = 0;
         for (var i = 1; i < dane.length; i++) {
-            if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
-                check += 1;
-                poprzedniName = dane[i].name;
-                nastepnyName = dane[i - 1].name;
-                poprzedniStreet = dane[i].street;
-                nastepnyStreet = dane[i - 1].street;
-                poprzedniLat = dane[i].lat;
-                nastepnyLat = dane[i - 1].lat;
-                poprzedniLng = dane[i].lng;
-                nastepnyLng = dane[i - 1].lng;
-                poprzedniValue = dane[i].value;
-                nastepnyValue = dane[i - 1].value;
-                poprzedniDistance = dane[i].distance;
-                nastepnyDistance = dane[i - 1].distance;
+            if (transactionQuantor === "sale") {
+                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
+                    check += 1;
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
 
-                dane[i].name = nastepnyName;
-                dane[i - 1].name = poprzedniName;
-                dane[i].street = nastepnyStreet;
-                dane[i - 1].street = poprzedniStreet;
-                dane[i].lat = nastepnyLat;
-                dane[i - 1].lat = poprzedniLat;
-                dane[i].lng = nastepnyLng;
-                dane[i - 1].lng = poprzedniLng;
-                dane[i].value = nastepnyValue;
-                dane[i - 1].value = poprzedniValue;
-                dane[i].distance = nastepnyDistance;
-                dane[i - 1].distance = poprzedniDistance;
-            } else {
-                check += 0;
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
+                }
+                else {
+                    check += 0;
+                }
             }
+            else {
+                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
+                    check += 1;
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
+
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
+                }
+                else {
+                    check += 0;
+                }
+            } 
         }
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
@@ -317,10 +350,9 @@ function sortJSON(dane) {
 }
 
 
-// Funkcja wyświetla dane z pliku JSON.
-// Na wejściu metoda otrzymuje dane z quantoru oraz typ przeprowadzonej transkacji.
+// Funkcja wyświetla dane w głównym oknie aplikacji.
+// Na wejściu metoda otrzymuje dane typu JSON.
 function showDataJSON(dane) {
-    //alert(dane);
     document.getElementById('indexId').innerHTML = "";
     var body = document.getElementsByTagName('body')[0];
     for (var step = 0; step < dane.length; step++) {
