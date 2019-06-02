@@ -16,6 +16,7 @@ var lng = 0;
         var receivedElement = parentElement.querySelector('.received');
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
     };
 
     function onPause() {
@@ -144,8 +145,8 @@ function internetConnection() {
     }
 }
 
-function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 5000, maximumAge: 10000, enableHighAccuracy: true });
+function GPSDevice() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
 function onSuccess(pos) {
@@ -192,7 +193,7 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-    onDeviceReady();
+    GPSDevice();
     if (lat != 0 && lng != 0) {
         var e = document.getElementById("transaction");
         var transactionQuantor = e.options[e.selectedIndex].value;
