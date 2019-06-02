@@ -442,6 +442,13 @@ function addTransaction() {
     var cant = document.getElementById("cantorEnd");
     var cantor = cant.options[cant.selectedIndex].value;
     var howMuch = document.getElementById("howMuch").value;
+    var unitRate = document.getElementById("unitRate").value;
+    var date = document.getElementById("getDate").value;
 
-    alert(transactionQuantor + " " + currencyQuantor + " " + cantor + " " + howMuch);
+    if (howMuch !== "" && unitRate !== "" && date !== "") {
+        alert(transactionQuantor + "\n" + currencyQuantor + "\n" + cantor + "\n" + howMuch + "\n" + unitRate + "\n" + date);
+    }
+    else {
+        alert("Uzupełnij brakujące pola");
+    }
 }
