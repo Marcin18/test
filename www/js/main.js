@@ -274,24 +274,72 @@ function getValue(dane, transactionQuantor) {
 
 // Funkcja sortuje plik JSON w zależności od wyboru transakcji.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
-function sortJSON(dataJSON, transactionQuantor) {
+function sortJSON(dane, transactionQuantor) {
     var check = 1;
     do {
         check = 0;
-        for (var i = 1; i < dataJSON.length; i++) {
+        for (var i = 1; i < dane.length; i++) {
             if (transactionQuantor === "sale") {
-                if (parseFloat(dataJSON[i].value) < parseFloat(dataJSON[i - 1].value)) {
+                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
                     check += 1;
-                    dataJSON = this.updateData(dataJSON);
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
+
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
                 }
                 else {
                     check += 0;
                 } 
             }
             else {
-                if (parseFloat(dataJSON[i].value) > parseFloat(dataJSON[i - 1].value)) {
+                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
                     check += 1;
-                    dataJSON = this.updateData(dataJSON);
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
+
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
                 }
                 else {
                     check += 0;
@@ -299,38 +347,8 @@ function sortJSON(dataJSON, transactionQuantor) {
             } 
         }
     } while (check > 0);
-    var objectJSON = JSON.stringify(dataJSON);
+    var objectJSON = JSON.stringify(dane);
     showDataJSON(JSON.parse(objectJSON));
-}
-
-// funkcja aktualizuje dane podczas sortowania. 
-function updateData(data) {
-    backName = data[i].name;
-    nextName = data[i - 1].name;
-    backStreet = data[i].street;
-    nextStreet = data[i - 1].street;
-    backLat = data[i].lat;
-    nextLat = data[i - 1].lat;
-    backLng = data[i].lng;
-    nextLng = data[i - 1].lng;
-    backValue = data[i].value;
-    nextValue = data[i - 1].value;
-    backDistance = data[i].distance;
-    nextDistance = data[i - 1].distance;
-
-    data[i].name = nextName;
-    data[i - 1].name = backName;
-    data[i].street = nextStreet;
-    data[i - 1].street = backStreet;
-    data[i].lat = nextLat;
-    data[i - 1].lat = backLat;
-    data[i].lng = nextLng;
-    data[i - 1].lng = backLng;
-    data[i].value = nextValue;
-    data[i - 1].value = backValue;
-    data[i].distance = nextDistance;
-    data[i - 1].distance = backDistance;
-    return data;
 }
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
