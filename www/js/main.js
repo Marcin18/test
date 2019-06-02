@@ -261,6 +261,7 @@ function saveJSON(dane, transactionQuantor) {
         delete myObject;
     }
     objectJSON = JSON.stringify(result);
+    alert(objectJSON);
     sortJSON(JSON.parse(objectJSON));
     delete result;
 }
