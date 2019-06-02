@@ -237,11 +237,7 @@ function searchOffer() {
         else {
             alert("Brak dostępu do internetu");
         }
-    }
-    else {
-        alert("Włącz urządzenie GPS");
-    }
-   
+    }   
 }
 
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
