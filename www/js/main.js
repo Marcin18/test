@@ -191,12 +191,9 @@ function searchOffer() {
    
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
-               var dane = JSON.parse(this.responseText);
-               testFunction(dane, transactionQuantor);
-               //createTable(dane, transactionQuantor);
-               //alert("rozpoczynam sortowanie");
-               //sortTable(transactionQuantor);
-               //alert("koncze sortowanie");
+               //var dane = JSON.parse(this.responseText);
+               //showDataJSON(dane, transactionQuantor);
+               saveJSON(JSON.parse(this.responseText), transactionQuantor);
            }
            else {
                alert('Połączenie zakończyło się statusem ' + this.status);
@@ -219,36 +216,122 @@ function searchOffer() {
     
    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
-    //testFunction(JSON.parse(dataFile), transactionQuantor);
+    //showDataJSON(JSON.parse(dataFile), transactionQuantor);
 }
 
-function testFunction(dane, transactionQuantor) {
-    document.getElementById('indexId').innerHTML = "";
-    var body = document.getElementsByTagName('body')[0];
+function saveJSON(dane, transactionQuantor) {
+    var result = new Array();
     for (var step = 0; step < dane.rates.length; step++) {
-        var div = document.createElement('div');
-        div.setAttribute("class", "historyBox");
+        var myObject = new Object();
         for (var counter = 0; counter < 4; counter++) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
                     if (counter == 0) {
-                        this.createElementDiv(div, "cantorText", dane.rates[step].name);
+                        myObject.name = dane.rates[step].name;
                     }
                     else if (counter == 1) {
-                        this.createElementDivWithGPS(div, "streetText", dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
-                        //createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
+                        myObject.street = dane.rates[step].street;
+                        myObject.lat = dane.rates[step].lat;
+                        myObject.lng = dane.rates[step].lng;
                     }
                     else if (counter == 2) {
                         if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
-                            this.createElementDiv(div, "courseText", ("KURS: " + dane.rates[step].saleValue));
+                            myObject.value = dane.rates[step].saleValue;
                         }
                         else {
-                            this.createElementDiv(div, "courseText", ("KURS: " + dane.rates[step].purchaseValue));
+                            myObject.value = dane.rates[step].purchaseValue;
                         }
                     }
                     else if (counter == 3) {
-                        //var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
+                        //lat = 50.2585222;
+                        //lng = 20.2585241;
                         var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
+                        myObject.distance = distance;
+                    }
+                }
+                else {
+                    counter = 4;
+                }
+            }
+            else {
+                counter = 4;
+            }
+        }
+        result[step] = myObject;
+        delete myObject;
+    }
+    objectJSON = JSON.stringify(result);
+    sortJSON(JSON.parse(objectJSON));
+    delete result;
+}
+
+
+function sortJSON(dane) {
+    var check = 1;
+    do {
+        check = 0;
+        for (var i = 1; i < dane.length; i++) {
+            if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
+                check += 1;
+                poprzedniName = dane[i].name;
+                nastepnyName = dane[i - 1].name;
+                poprzedniStreet = dane[i].street;
+                nastepnyStreet = dane[i - 1].street;
+                poprzedniLat = dane[i].lat;
+                nastepnyLat = dane[i - 1].lat;
+                poprzedniLng = dane[i].lng;
+                nastepnyLng = dane[i - 1].lng;
+                poprzedniValue = dane[i].value;
+                nastepnyValue = dane[i - 1].value;
+                poprzedniDistance = dane[i].distance;
+                nastepnyDistance = dane[i - 1].distance;
+
+                dane[i].name = nastepnyName;
+                dane[i - 1].name = poprzedniName;
+                dane[i].street = nastepnyStreet;
+                dane[i - 1].street = poprzedniStreet;
+                dane[i].lat = nastepnyLat;
+                dane[i - 1].lat = poprzedniLat;
+                dane[i].lng = nastepnyLng;
+                dane[i - 1].lng = poprzedniLng;
+                dane[i].value = nastepnyValue;
+                dane[i - 1].value = poprzedniValue;
+                dane[i].distance = nastepnyDistance;
+                dane[i - 1].distance = poprzedniDistance;
+            } else {
+                check += 0;
+            }
+        }
+    } while (check > 0);
+    var objectJSON = JSON.stringify(dane);
+    showDataJSON(JSON.parse(objectJSON));
+}
+
+
+// Funkcja wyświetla dane z pliku JSON.
+// Na wejściu metoda otrzymuje dane z quantoru oraz typ przeprowadzonej transkacji.
+function showDataJSON(dane) {
+    //alert(dane);
+    document.getElementById('indexId').innerHTML = "";
+    var body = document.getElementsByTagName('body')[0];
+    for (var step = 0; step < dane.length; step++) {
+        var div = document.createElement('div');
+        div.setAttribute("class", "historyBox");
+        for (var counter = 0; counter < 4; counter++) {
+            if ((dane[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
+                if ((dane[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
+                    if (counter == 0) {
+                        this.createElementDiv(div, "cantorText", dane[step].name);
+                    }
+                    else if (counter == 1) {
+                        this.createElementDivWithGPS(div, "streetText", dane[step].street, dane[step].lat, dane[step].lng);
+                        //createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
+                    }
+                    else if (counter == 2) {
+                            this.createElementDiv(div, "courseText", ("KURS: " + dane[step].value));
+                    }
+                    else if (counter == 3) {
+                        var distance = getDistanceFromLatLonInKm(lat, lng, dane[step].lat, dane[step].lng);
                         this.createElementDiv(div, "locationText", "~" + distance + " km od Ciebie");
                     }
                 }
@@ -262,8 +345,6 @@ function testFunction(dane, transactionQuantor) {
         }
         body.appendChild(div);
     }
-   // this.createElementDiv(div, "cantorText", dane.rates[0].name);
-    //body.appendChild(div);
 }
 
 function createElementDiv(mainDiv,nameClass,value) {
@@ -282,128 +363,4 @@ function createElementDivWithGPS(mainDiv, nameClass, value, lat, lng) {
     img.src = "images/gps.png";
     div.appendChild(img);
     mainDiv.appendChild(div);
-}
-
-// Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
-// Na wejściu metoda otrzymuje zmienną "dane" zawierającą odpowiedź z serwisu quantor.pl oraz typ transkacji dla jakiej została uzyskana.
-function createTable(dane, transactionQuantor) {
-    document.getElementById('indexId').innerHTML = "";
-    var body = document.getElementsByTagName('body')[0];
-    var tbl = document.createElement('table');
-    tbl.setAttribute('id', "tableCurrency");
-    tbl.style.width = '75%';
-    tbl.style.margin = 'auto';
-    tbl.setAttribute("class", "table table-striped table-dark");
-    var tbdy = document.createElement('tbody');
-    //koniec tworzenia tabeli
-    // tutaj dodawany jest nagłówek tabel
-    var trNav = document.createElement('tr');
-    createTableElementTH(trNav, 'Kantor');
-    createTableElementTH(trNav, 'Ulica');
-    createTableElementTH(trNav, 'Kurs');
-    createTableElementTH(trNav, 'Od Ciebie');
-    tbdy.appendChild(trNav);
-    // konieć dodawania nagłowka tabeli
-    for (var step = 0; step < dane.rates.length; step++) {
-        var tr = document.createElement('tr');
-        for (var j = 0; j < 4; j++) {
-            if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
-                if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
-                    if (j == 0) {
-                        createTableElementTD(tr, dane.rates[step].name);
-                    }
-                    else if (j == 1) {
-                        createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
-                    }
-                    else if (j == 2) {
-                        if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
-                            createTableElementTD(tr, dane.rates[step].saleValue);
-                        }
-                        else {
-                            createTableElementTD(tr, dane.rates[step].purchaseValue);
-                        }
-                    }
-                    else if (j == 3) {
-                        var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
-                        createTableElementTD(tr, distance + " km");
-                    }
-                }
-                else {
-                    j = 4;
-                }
-            }
-            else {
-                j = 4;
-            }
-        }
-        tbdy.appendChild(tr);
-    }
-    tbl.appendChild(tbdy);
-    body.appendChild(tbl);
-}
-
-// Metoda tworzy tytuły nagłówkowe dla odpowiednich kolumn.
-// Na wejściu metoda otrzymuje element nadrzędny tabeli oraz nazwę kolumny.
-function createTableElementTH(elementTR, name) {
-    var thNav = document.createElement('th');
-    thNav.appendChild(document.createTextNode(name));
-    thNav.setAttribute("style", "text-align:center");
-    elementTR.appendChild(thNav);
-}
-
-// Metoda uzupełnia dane w odpowiedniej kolumnie.
-// Na wejściu metoda otrzymuje element nadrzędny tabeli (wiersz) oraz wartość do wpisania.
-function createTableElementTD(elementTR, value) {
-    var td = document.createElement('td');
-    td.appendChild(document.createTextNode(value));
-    td.setAttribute("style", "text-align:center");
-    elementTR.appendChild(td);
-}
-
-// Metoda uzupełnia danymi odpowiednią kolumne.
-// Na wejściu metoda otrzymuje element nadrzędny tabeli (wiersz), wartość do wpisania oraz współrzędne GPS.
-function createTableElementTDwithGPS(elementTR, value, lat, lon) {
-    var td = document.createElement('td');
-    td.appendChild(document.createTextNode(value + " "));
-    td.setAttribute("style", "text-align:center;text-decoration:underline");
-    td.setAttribute("onclick", "showGoogleMaps(" + lat + "," + lon + ")");
-    var img = document.createElement("img");
-    img.src = "images/gps.png";
-    td.appendChild(img);
-    elementTR.appendChild(td);
-}
-
-
-function sortTable(transaction) {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    var counter = 0;
-    table = document.getElementById("tableCurrency");
-    switching = true;
-    while (switching) {
-        counter++;
-        switching = false;
-        rows = table.rows;
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[3];
-            y = rows[i + 1].getElementsByTagName("TD")[3];
-            if (transaction === "sale") { // warunek sortowania dla transkacji sprzedaj
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-            else {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]); // pierwsza wartość oznacza wstawiany element a druga że przed nim ma zostać wstawiona
-            switching = true;
-        }
-    }
-    alert("ilosć operacji: " + counter);
 }
