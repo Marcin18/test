@@ -446,9 +446,31 @@ function addTransaction() {
     var date = document.getElementById("getDate").value;
 
     if (howMuch !== "" && unitRate !== "" && date !== "") {
-        alert(transactionQuantor + "\n" + currencyQuantor + "\n" + cantor + "\n" + howMuch + "\n" + unitRate + "\n" + date);
+        var object = new Object();
+        var result = new Array();
+        object.tranzakcja = transactionQuantor;
+        object.waluta = currencyQuantor;
+        object.kantor = cantor;
+        object.ilosc = howMuch;
+        object.kurs = unitRate;
+        object.wartosc = unitRate * howMuch;
+        object.data = date;
+        result[0] = object;
+        objectJSON = JSON.stringify(result);
+        localStorage.setItem("testJSON", objectJSON);
+        delete object;
+        delete result;
+        alert("Powiodło się");
+        //alert(transactionQuantor + "\n" + currencyQuantor + "\n" + cantor + "\n" + howMuch + "\n" + unitRate + "\n" + date);
     }
     else {
         alert("Uzupełnij brakujące pola");
     }
+}
+
+function showTest() {
+    text = localStorage.getItem("testJSON");
+    obj = JSON.parse(text);
+    alert(obj);
+    alert(text);
 }
