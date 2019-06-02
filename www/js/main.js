@@ -168,7 +168,7 @@ function showGoogleMaps(lat, lon) {
 
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
-   onDeviceReady();
+   //onDeviceReady();
    var e = document.getElementById("transaction");
    var transactionQuantor = e.options[e.selectedIndex].value;
    var f = document.getElementById("currency");
@@ -192,11 +192,11 @@ function searchOffer() {
        xmlHttp.addEventListener('load', function () {
            if (this.status === 200) {
                var dane = JSON.parse(this.responseText);
-               alert("Tworzę tabele");
-               createTable(dane, transactionQuantor);
-               alert("rozpoczynam sortowanie");
-               sortTable(transactionQuantor);
-               alert("koncze sortowanie");
+               testFunction(dane, transactionQuantor);
+               //createTable(dane, transactionQuantor);
+               //alert("rozpoczynam sortowanie");
+               //sortTable(transactionQuantor);
+               //alert("koncze sortowanie");
            }
            else {
                alert('Połączenie zakończyło się statusem ' + this.status);
@@ -217,9 +217,71 @@ function searchOffer() {
        alert("Brak dostępu do internetu");
    }
     
-    //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lot": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
+   //var dataFile = '{"rates":[{"saleValue": "4.610", "street": "Mickiewicza 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Groszek", "postalCode": "31-044"},{"saleValue": "4.3530", "street": "Grodzka 46", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Grodzka", "postalCode": "31-044"},{"saleValue": "4.7430", "street": "Wiejska 6", "lat": "50.05762", "lng": "19.93839", "name": "Kantor Wiejska", "postalCode": "31-044"}],"total":3}';
     //createTable(JSON.parse(dataFile), transactionQuantor);
-    //sortTable(transactionQuantor);
+    //testFunction(JSON.parse(dataFile), transactionQuantor);
+}
+
+function testFunction(dane, transactionQuantor) {
+    document.getElementById('indexId').innerHTML = "";
+    var body = document.getElementsByTagName('body')[0];
+    for (var step = 0; step < dane.rates.length; step++) {
+        var div = document.createElement('div');
+        div.setAttribute("class", "historyBox");
+        for (var counter = 0; counter < 4; counter++) {
+            if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
+                if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
+                    if (counter == 0) {
+                        this.createElementDiv(div, "cantorText", dane.rates[step].name);
+                    }
+                    else if (counter == 1) {
+                        this.createElementDivWithGPS(div, "streetText", dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
+                        //createTableElementTDwithGPS(tr, dane.rates[step].street, dane.rates[step].lat, dane.rates[step].lng);
+                    }
+                    else if (counter == 2) {
+                        if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
+                            this.createElementDiv(div, "courseText", ("KURS: " + dane.rates[step].saleValue));
+                        }
+                        else {
+                            this.createElementDiv(div, "courseText", ("KURS: " + dane.rates[step].purchaseValue));
+                        }
+                    }
+                    else if (counter == 3) {
+                        //var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
+                        var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
+                        this.createElementDiv(div, "locationText", "~" + distance + " km od Ciebie");
+                    }
+                }
+                else {
+                    counter = 4;
+                }
+            }
+            else {
+                counter = 4;
+            }
+        }
+        body.appendChild(div);
+    }
+   // this.createElementDiv(div, "cantorText", dane.rates[0].name);
+    //body.appendChild(div);
+}
+
+function createElementDiv(mainDiv,nameClass,value) {
+    var div = document.createElement('div');
+    div.setAttribute("class", nameClass);
+    div.appendChild(document.createTextNode(value));
+    mainDiv.appendChild(div);
+}
+
+function createElementDivWithGPS(mainDiv, nameClass, value, lat, lng) {
+    var div = document.createElement('div');
+    div.setAttribute("class", nameClass);
+    div.appendChild(document.createTextNode(value + " "));
+    div.setAttribute("onclick", "showGoogleMaps(" + lat + "," + lng + ")");
+    var img = document.createElement("img");
+    img.src = "images/gps.png";
+    div.appendChild(img);
+    mainDiv.appendChild(div);
 }
 
 // Metoda tworzy tabele z danymi uzyskanymi z quantor.pl
