@@ -442,7 +442,6 @@ function addTransaction() {
     var cant = document.getElementById("cantorEnd");
     var cantor = cant.options[cant.selectedIndex].value;
     var howMuch = document.getElementById("howMuch").value;
-    //var howMuch = howM.options[howM.selectedIndex].value;
 
     alert(transactionQuantor + " " + currencyQuantor + " " + cantor + " " + howMuch);
 }
