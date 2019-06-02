@@ -266,7 +266,6 @@ function saveJSON(dane, transactionQuantor) {
         }
     }
     objectJSON = JSON.stringify(result);
-    alert(objectJSON);
     sortJSON(JSON.parse(objectJSON), transactionQuantor);
     delete result;
 }
@@ -278,7 +277,7 @@ function sortJSON(dane, transactionQuantor) {
         check = 0;
         for (var i = 1; i < dane.length; i++) {
             if (transactionQuantor === "sale") {
-                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
+                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
                     check += 1;
                     poprzedniName = dane[i].name;
                     nastepnyName = dane[i - 1].name;
@@ -308,10 +307,10 @@ function sortJSON(dane, transactionQuantor) {
                 }
                 else {
                     check += 0;
-                }
+                } 
             }
             else {
-                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
+                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
                     check += 1;
                     poprzedniName = dane[i].name;
                     nastepnyName = dane[i - 1].name;
@@ -348,7 +347,6 @@ function sortJSON(dane, transactionQuantor) {
     var objectJSON = JSON.stringify(dane);
     showDataJSON(JSON.parse(objectJSON));
 }
-
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
 // Na wejściu metoda otrzymuje dane typu JSON.
