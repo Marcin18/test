@@ -3,13 +3,13 @@ var lng = 0;
 (function () {
     "use strict";
 
-    document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
     function onDeviceReady() {
         // Obsługa zdarzeń wstrzymywania i wznawiania działania oprogramowania Cordova
-        document.addEventListener( 'pause', onPause.bind( this ), false );
-        document.addEventListener( 'resume', onResume.bind( this ), false );
-        
+        document.addEventListener('pause', onPause.bind(this), false);
+        document.addEventListener('resume', onResume.bind(this), false);
+
         // TODO: Załadowano oprogramowanie Cordova. Wykonaj tutaj wszystkie wymagane kroki inicjowania tego oprogramowania.
         var parentElement = document.getElementById('deviceready');
         var listeningElement = parentElement.querySelector('.listening');
@@ -68,13 +68,13 @@ function includeHTML() {
 
 // funkcja obsługuje proces kliknięcia w menu wyszukiwania
 function expand() {
-  $(".search").toggleClass("close");
-  $(".input").toggleClass("square");
-  if ($('.search').hasClass('close')) {
-    $('input').focus();
-  } else {
-    $('input').blur();
-  }
+    $(".search").toggleClass("close");
+    $(".input").toggleClass("square");
+    if ($('.search').hasClass('close')) {
+        $('input').focus();
+    } else {
+        $('input').blur();
+    }
 }
 $('button').on('click', expand);
 
@@ -146,7 +146,7 @@ function internetConnection() {
 }
 
 function GPSDevice() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
 function onSuccess(pos) {
@@ -161,8 +161,8 @@ function onError(error) {
 // Oblicza dystans w linii prostej między dwoma punktami.
 // Na wejściu metoda otrzymuje dane lokalizacyjne dwóch punktów.
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    var R = 6371; 
-    var dLat = deg2rad(lat2 - lat1); 
+    var R = 6371;
+    var dLat = deg2rad(lat2 - lat1);
     var dLon = deg2rad(lon2 - lon1);
     var a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -237,7 +237,7 @@ function searchOffer() {
         else {
             alert("Brak dostępu do internetu");
         }
-    }   
+    }
 }
 
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
@@ -332,7 +332,7 @@ function sortJSON(dane, transactionQuantor) {
                 }
                 else {
                     check += 0;
-                } 
+                }
             }
             else {
                 if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
@@ -366,7 +366,7 @@ function sortJSON(dane, transactionQuantor) {
                 else {
                     check += 0;
                 }
-            } 
+            }
         }
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
@@ -391,7 +391,7 @@ function showDataJSON(dane) {
                         this.createElementDivWithGPS(div, "streetText", dane[step].street, dane[step].lat, dane[step].lng);
                     }
                     else if (counter == 2) {
-                            this.createElementDiv(div, "courseText", ("KURS: " + dane[step].value));
+                        this.createElementDiv(div, "courseText", ("KURS: " + dane[step].value));
                     }
                     else if (counter == 3) {
                         var distance = getDistanceFromLatLonInKm(lat, lng, dane[step].lat, dane[step].lng);
@@ -412,7 +412,7 @@ function showDataJSON(dane) {
 
 // Funkcja tworzy element Div z odpowienimi danymi.
 // Na wejściu funkcja otrzymuje główny uchwyt do elementu, nazwę klasy oraz wartość do wstawienie.
-function createElementDiv(mainDiv,nameClass,value) {
+function createElementDiv(mainDiv, nameClass, value) {
     var div = document.createElement('div');
     div.setAttribute("class", nameClass);
     div.appendChild(document.createTextNode(value));
@@ -444,7 +444,6 @@ function addTransaction() {
     var howMuch = document.getElementById("howMuch").value;
     var unitRate = document.getElementById("unitRate").value;
     var date = document.getElementById("getDate").value;
-
     if (howMuch !== "" && unitRate !== "" && date !== "") {
         var object = new Object();
         var result = new Array();
@@ -456,11 +455,19 @@ function addTransaction() {
         object.wartosc = unitRate * howMuch;
         object.data = date;
         result[0] = object;
-        objectJSON = JSON.stringify(result);
-        localStorage.setItem("testJSON", objectJSON);
+        text = localStorage.getItem("userHistory");
+        if (text == null) {
+            objectJSON = JSON.stringify(result);
+        }
+        else {
+            obj = JSON.parse(text);
+            obj.push(result[0]);
+            objectJSON = JSON.stringify(obj);
+        }
+        localStorage.setItem("userHistory", objectJSON);
         delete object;
         delete result;
-        alert("Powiodło się");
+        alert("Dodano do historii");
         //alert(transactionQuantor + "\n" + currencyQuantor + "\n" + cantor + "\n" + howMuch + "\n" + unitRate + "\n" + date);
     }
     else {
@@ -469,8 +476,18 @@ function addTransaction() {
 }
 
 function showTest() {
-    text = localStorage.getItem("testJSON");
+    text = localStorage.getItem("userHistory");
     obj = JSON.parse(text);
-    alert(obj);
-    alert(text);
+    document.getElementById('historyID').innerHTML = "";
+    var body = document.getElementsByTagName('body')[0];
+    for (var i = 0; i < obj.length; i++) {
+        var div = document.createElement('div');
+        div.setAttribute("class", "historyBox");
+        this.createElementDiv(div, "cantorText", obj[i].data);
+        this.createElementDiv(div, "testHistory", obj[i].tranzakcja + ": " + obj[i].ilosc + " " + obj[i].waluta);
+        this.createElementDiv(div, "testHistory", "Po kursie: " + obj[i].kurs);
+        this.createElementDiv(div, "testHistory", "Na kwotę: " + obj[i].wartosc + " zł");
+        this.createElementDiv(div, "testHistory", "W kantorze: " + obj[i].kantor);
+        body.appendChild(div);
+    }
 }
