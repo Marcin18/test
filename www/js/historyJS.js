@@ -57,6 +57,7 @@ var sortBy = (function () {
         if (typeof cfg.parser !== "function") cfg.parser = parse;
         cfg.desc = !!cfg.desc ? -1 : 1;
         return array.sort(function (a, b) {
+            alert("Jestem w sortowaniu: " + typeSort);
             a = getItem.call(cfg, a);
             b = getItem.call(cfg, b);
             if (typeSort === "old") {
