@@ -57,13 +57,12 @@ var sortBy = (function () {
         if (typeof cfg.parser !== "function") cfg.parser = parse;
         cfg.desc = !!cfg.desc ? -1 : 1;
         return array.sort(function (a, b) {
-            alert("Jestem w sortowaniu: " + typeSort);
             a = getItem.call(cfg, a);
             b = getItem.call(cfg, b);
             if (typeSort === "old") {
                 return cfg.desc * (a < b ? -1 : +(a > b));
             }
-            else {
+            else if (typeSort === "new") {
                 return cfg.desc * (a > b ? -1 : +(a < b));
             }
         });
