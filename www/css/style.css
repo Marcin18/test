@@ -8,12 +8,23 @@
     font-size:16px;
 }
 
-.dataBody{
-    margin-right:30px;
+.dataBody {
+    margin-right: 30px;
 }
 
 .separator{
     margin-top:20px;
+}
+
+.borderSelectOptins {
+    text-align: center;
+    background-color:rgba(105, 164, 237, 0.4);
+    border-color: #808080;
+    border-width:1px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-left-style: solid;
+    width: 75%;
 }
 
 .historyBox {
@@ -28,6 +39,14 @@
     margin:auto;
     margin-bottom:20px;
     text-align:center;
+}
+
+.historyUser {
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+    color:red;
 }
 
 .cantorText {
@@ -63,17 +82,17 @@
     font-weight: bold;
 }
 
-.testRedHistory {
-    font-size: 15px;
-    font-weight: bold;
-    color: red;
-}
-
 .text {
     margin: auto;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
+}
+
+.textInfo {
+    font-size: 15px;
+    text-align: center;
+    margin:0,15px,0,15px;
 }
 
 .event {

@@ -14,14 +14,28 @@
 </head>
 <body>
     <div class="container" style="padding:0px 0px 0px 0px;position:relative">
-        <div w3-include-html="menu.html"></div>
+        <!-- Top Navigation Menu -->
+        <div class="topnav">
+            <a class="active" style="text-align:center;font-size:15px;color:white"><b>LOGOWANIE</b></a>
+            <div id="myLinks">
+                <a href="../index.html">HOME</a>
+                <a href="javascript:checkLogin('no','transaction.html');">DODAJ TRANSAKCJE</a>
+                <a href="javascript:checkLogin('no','history.html');">HISTORIA OPERACJI</a>
+                <a href="javascript:checkLogin('no','account.html');">KONTO UŻYTKOWNIKA</a>
+                <a href="signIn.html">ZALOGUJ SIĘ</a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="menuFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        <!-- End Navigation Manu -->
         <dir>
             <!--Twój HTML-->
             <div>
                 <form class="signUp">
                     <h3>Create Your Account</h3>
                     <p>
-                        Just enter your email address<br/>
+                        Just enter your email address<br />
                         and your password for join.
                     </p>
                     <input class="w100" type="email" placeholder="Insert eMail" reqired autocomplete='off' />
@@ -31,7 +45,7 @@
                     <button class="form-btn dx" type="submit">Sign Up</button>
                 </form>
                 <form class="signIn">
-                    <h3>Welcome<br/>Back !</h3>
+                    <h3>Welcome<br />Back !</h3>
                     <button class="fb" type="button">Log In With Facebook</button>
                     <p>- or -</p>
                     <input type="email" placeholder="Insert eMail" autocomplete='off' reqired />

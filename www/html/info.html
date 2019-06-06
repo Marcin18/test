@@ -11,12 +11,13 @@
     <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/historyJS.js"></script>
 </head>
 <body>
     <div class="container" style="padding:0px 0px 0px 0px;position:relative">
         <!-- Top Navigation Menu -->
         <div class="topnav">
-            <a class="active" style="text-align:center;font-size:15px;color:white"><b>KONTO UŻYTKOWNIKA</b></a>
+            <a class="active" style="text-align:center;font-size:15px;color:white"><b>INFORMACJE</b></a>
             <div id="myLinks">
                 <a href="../index.html">HOME</a>
                 <a href="javascript:checkLogin('no','transaction.html');">DODAJ TRANSAKCJE</a>
@@ -29,10 +30,20 @@
             </a>
         </div>
         <!-- End Navigation Manu -->
-        <dir class="dataBody">
-            <center><h1>Konto uzytkownika</h1></center>
-        </dir>
+        <dir class="separator"></dir>
+        <div class="textInfo" style="padding:10px">
+            I. Aplikacja działa w oparciu o API udostępniane dzięki portalowi <b>quantor.pl</b>
+        </div>
+        <div style="margin-bottom:3px"></div>
+        <div class="textInfo" style="padding:10px">
+            II. Kursy walut mogą nieznacznie odbiegać od aktualnie oferowanych w kantorze. <br />
+        </div>
+        <div style="margin-bottom:3px"></div>
+        <div class="textInfo" style="padding:10px">
+            III. W wynikach wyszukiwania pojawia się określenie odległości do konkretnego kantoru i jest ona wyznaczana w linii prostej,
+            dlatego rzeczywista odległość może się nieco różnić.
+        </div>
     </div>
-    <script>includeHTML();</script>
+    <script>showHistory();</script>
 </body>
 </html>

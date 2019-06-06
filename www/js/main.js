@@ -225,17 +225,17 @@ function searchOffer() {
             });
 
             xmlHttp.addEventListener('error', function (e) {
-                alert('Wystąpił błąd połączenia');
+                alert('Niestety coś poszło nie tak :/');
             });
 
             xmlHttp.addEventListener('timeout', function () {
-                alert('Upłynął czas zapytania, proszę spróbować ponownie za chwilę');
+                alert('Coś tłoczno na łączu internetowym :/ spróbuj ponownie za chwilę :)');
             });
 
             xmlHttp.send("currency=" + currencyQuantor + "&transaction=" + transactionQuantor);
         }
         else {
-            alert("Brak dostępu do internetu");
+            alert("No wiesz..., internet jest mi potrzebny :) ");
         }
     }
 }
@@ -434,6 +434,8 @@ function createElementDivWithGPS(mainDiv, nameClass, value, lat, lng) {
 
 //------------------------------------------ skrypty do dodawania transakcji-----
 
+// Funkcja pobiera poszczególne dane z formularza dodawania transakcji.
+// Jeśli wszystko przebiegnie prawidłowo (pola nie są puste) metoda dodaje dane do pamięci urządzenia w postaci struktury JSON.
 function addTransaction() {
     var tran = document.getElementById("transactionEnd");
     var transactionQuantor = tran.options[tran.selectedIndex].value;
@@ -456,7 +458,7 @@ function addTransaction() {
         object.data = date;
         result[0] = object;
         text = localStorage.getItem("userHistory");
-        if (text == null) {
+        if (text == null) { // warunek sprawdzający czy taki plik istnieje
             objectJSON = JSON.stringify(result);
         }
         else {
@@ -467,27 +469,23 @@ function addTransaction() {
         localStorage.setItem("userHistory", objectJSON);
         delete object;
         delete result;
-        alert("Dodano do historii");
-        //alert(transactionQuantor + "\n" + currencyQuantor + "\n" + cantor + "\n" + howMuch + "\n" + unitRate + "\n" + date);
+        alert("I cyk dodane do historii :)");
     }
     else {
-        alert("Uzupełnij brakujące pola");
+        alert("Wszystkie pola są ważne :)");
     }
 }
 
-function showTest() {
-    text = localStorage.getItem("userHistory");
-    obj = JSON.parse(text);
-    document.getElementById('historyID').innerHTML = "";
-    var body = document.getElementsByTagName('body')[0];
-    for (var i = 0; i < obj.length; i++) {
-        var div = document.createElement('div');
-        div.setAttribute("class", "historyBox");
-        this.createElementDiv(div, "cantorText", obj[i].data);
-        this.createElementDiv(div, "testHistory", obj[i].tranzakcja + ": " + obj[i].ilosc + " " + obj[i].waluta);
-        this.createElementDiv(div, "testHistory", "Po kursie: " + obj[i].kurs);
-        this.createElementDiv(div, "testHistory", "Na kwotę: " + obj[i].wartosc + " zł");
-        this.createElementDiv(div, "testHistory", "W kantorze: " + obj[i].kantor);
-        body.appendChild(div);
+function checkLogin(forIndex, nameHTML) {
+    if (confirm('Czy jesteś zalogowany?')) {
+        location.href = nameHTML;
+    }
+    else {
+        if (forIndex === "no") {
+            location.href = "signIn.html";
+        }
+        else {
+            location.href = "html/signIn.html";
+        }  
     }
 }
