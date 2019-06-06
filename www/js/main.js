@@ -2,9 +2,7 @@
 var lng = 0;
 (function () {
     "use strict";
-
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-
     function onDeviceReady() {
         // Obsługa zdarzeń wstrzymywania i wznawiania działania oprogramowania Cordova
         document.addEventListener('pause', onPause.bind(this), false);
@@ -38,80 +36,7 @@ function menuFunction() {
     }
 };
 
-function includeHTML() {
-    var z, i, elmnt, file, xhttp;
-    /*loop through a collection of all HTML elements:*/
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-            /*make an HTTP request using the attribute value as the file name:*/
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-                    if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-                    /*remove the attribute, and call this function once more:*/
-                    elmnt.removeAttribute("w3-include-html");
-                    includeHTML();
-                }
-            }
-            xhttp.open("GET", file, true);
-            xhttp.send();
-            /*exit the function:*/
-            return;
-        }
-    }
-};
-
-// funkcja obsługuje proces kliknięcia w menu wyszukiwania
-function expand() {
-    $(".search").toggleClass("close");
-    $(".input").toggleClass("square");
-    if ($('.search').hasClass('close')) {
-        $('input').focus();
-    } else {
-        $('input').blur();
-    }
-}
-$('button').on('click', expand);
-
-// funkcja ustawia w dropdown wybraną wartość przez użytkownika
-function getItem() {
-    $(".dropdown-menu a").click(function () {
-        $(this).parents(".dropdown").find('.btn').html($(this).text());
-        $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-    });
-}
-
-// funkcja filtrujaca wyszukiwarkę.
-function filterSearch() {
-    let filterValue = document.getElementById('filterInput').value.toUpperCase(); // pobranie wartości z wyszukiwarki
-    let ul = document.getElementById('tips'); // pobranie elementu ul
-    let li = ul.querySelectorAll('li.name-item'); // pobranie listy podpowiedzi
-    // Pętla wyświetlająca przefiltrowane podpowiedzi
-    for (let i = 0; i < li.length; i++) {
-        let a = li[i].getElementsByTagName('a')[0];
-        if (a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
-            li[i].style.display = '';
-        } else {
-            li[i].style.display = 'none';
-        }
-    }
-}
-
-// funkcja wyświetla lub nie wyświetla danego diva.
-function displayShow(idElement, bool) {
-    x = document.getElementById(idElement);
-    if (bool === 'true') {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
+// Funkcja zwracająca datę.
 function getData() {
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd' });
 }
@@ -134,7 +59,7 @@ function signIn() {
     });
 }
 
-// Funkcja sprawdza połączenie z internetem
+// Funkcja sprawdza połączenie z internetem.
 function internetConnection() {
     var networkState = navigator.connection.type;
     if (networkState == 'none') {
@@ -145,10 +70,22 @@ function internetConnection() {
     }
 }
 
+function geolocationConnection() {
+    var geolocationConnection = navigator.geolocation.type;
+    if (geolocationConnection == 'none') {
+        alert("Nie dziala");
+    }
+    else {
+        alert("działa");
+    }
+}
+
+// Funkcja pobiera współrzędne GPS z urządzenia.
 function GPSDevice() {
     navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
 }
 
+// Funkcja wykona się dla prawidłowego pobrania współrzędnych.
 function onSuccess(pos) {
     lat = pos.coords.latitude;
     lng = pos.coords.longitude;
@@ -175,12 +112,13 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     return (d);
 }
 
-// funkcja zaokrągla wartości po przecinku.
+// Funkcja zaokrągla wartości po przecinku.
 function Round(n, k) {
     var factor = Math.pow(10, k);
     return Math.round(n * factor) / factor;
 }
 
+// Funkcja zamienia stopnie na radiany.
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
@@ -476,6 +414,7 @@ function addTransaction() {
     }
 }
 
+// Funkcja sprawdzająca czy jestesmy zalogowani.
 function checkLogin(forIndex, nameHTML) {
     if (confirm('Czy jesteś zalogowany?')) {
         location.href = nameHTML;
