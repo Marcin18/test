@@ -70,16 +70,6 @@ function internetConnection() {
     }
 }
 
-function geolocationConnection() {
-    var geolocationConnection = navigator.geolocation.type;
-    if (geolocationConnection == 'none') {
-        alert("Nie dziala");
-    }
-    else {
-        alert("działa");
-    }
-}
-
 // Funkcja pobiera współrzędne GPS z urządzenia.
 function GPSDevice() {
     navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 4000, maximumAge: 10000, enableHighAccuracy: true });
@@ -175,6 +165,9 @@ function searchOffer() {
         else {
             alert("No wiesz..., internet jest mi potrzebny :) ");
         }
+    }
+    else{
+        alert("Uruchom moduł GPS");
     }
 }
 
