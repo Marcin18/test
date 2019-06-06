@@ -1,5 +1,4 @@
 .body {
-    background-color: green;
     height: 100%;
     margin: auto;
     width: 100%;
@@ -16,7 +15,7 @@
 
 .borderSelectOptins {
     text-align: center;
-    background-color:rgba(138, 134, 134, 0.10);
+    background-color:rgba(138, 134, 134, 0.40);
     border-color: #808080;
     border-width:1px;
     border-top-style: solid;
@@ -88,7 +87,7 @@
 }
 
 .textInfo {
-    font-size: 17px;
+    font-size: 18px;
     text-align: center;
     margin:0,15px,0,15px;
 }
