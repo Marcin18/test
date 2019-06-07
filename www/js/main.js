@@ -166,9 +166,6 @@ function searchOffer() {
             alert("No wiesz..., internet jest mi potrzebny :) ");
         }
     }
-    else{
-        alert("Uruchom moduł GPS");
-    }
 }
 
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
@@ -385,7 +382,9 @@ function addTransaction() {
         object.kantor = cantor;
         object.ilosc = howMuch;
         object.kurs = unitRate;
-        object.wartosc = unitRate * howMuch;
+        resultWartosc = unitRate * howMuch;
+        resultWartosc = Round(resultWartosc, 2);
+        object.wartosc = resultWartosc;
         object.data = date;
         result[0] = object;
         text = localStorage.getItem("userHistory");
@@ -409,7 +408,8 @@ function addTransaction() {
 
 // Funkcja sprawdzająca czy jestesmy zalogowani.
 function checkLogin(forIndex, nameHTML) {
-    if (confirm('Czy jesteś zalogowany?')) {
+    text = localStorage.getItem("database");
+    if (text ==="connect") {
         location.href = nameHTML;
     }
     else {
@@ -419,5 +419,76 @@ function checkLogin(forIndex, nameHTML) {
         else {
             location.href = "html/signIn.html";
         }  
+    }
+}
+
+function accountResult() {
+    text = localStorage.getItem("userHistory");
+    object = JSON.parse(text);
+    // zwraca sumę kwoty 
+    var sumaKwot = 0;
+    for (var i = 0; i < object.length; i++) {
+        alert
+        sumaKwot += object[i].wartosc;
+    }
+
+    var iloscEuro = (text.split("€").length - 1);
+    var iloscCHF = (text.split("CHF").length - 1);
+    var iloscSEK = (text.split("SEK").length - 1);
+    var iloscDolar = (text.split("$").length - 1);
+    var iloscFunt = (text.split("£").length - 1);
+
+    var maxValue = (Math.max(iloscEuro, iloscCHF, iloscSEK, iloscDolar, iloscFunt));
+    var resultValue;
+    if (maxValue == iloscEuro) {
+        resultValue = "EURO";
+    } else if (maxValue == iloscCHF) {
+        resultValue = "FRANK SZWAJCARSKI";
+    } else if (maxValue == iloscSEK) {
+        resultValue ="KORONA SZWEDZKA";
+    } else if (maxValue == iloscDolar) {
+        resultValue = "DOLAR" ;
+    } else if (maxValue == iloscFunt) {
+        resultValue = "FUNT BRYTYJSKI" ;
+    } else {
+        resultValue = "Brak danych";
+    }
+
+    document.getElementById('accountID').innerHTML = "";
+    var body = document.getElementsByTagName('body')[0];
+    showAccount(body, "historyBox", resultValue, "Twoją ulubioną walutą:");
+    showAccount(body, "historyBox", object.length, "Wszystkich transakcji:");
+    showAccount(body, "historyBox", sumaKwot, "Łączna wartość wymiany [w zł]:");
+
+}
+
+function showAccount( body, nameclass, resultValue, text) {
+    var div = document.createElement('div');
+    div.setAttribute("class", nameclass);
+    this.createElementDiv(div, "testHistory", text);
+    this.createElementDiv(div, "historyUser", resultValue);
+    body.appendChild(div);
+}
+
+function linkHref(forIndex) {
+    text = localStorage.getItem("database");
+    if (text === "connect") {
+        nameHref = ["HOME", "DODAJ TRANSAKCJE", "HISTORIA OPERACJI", "KONTO UŻYTKOWNIKA", "WYLOGUJ SIĘ"];
+    }
+    else {
+        nameHref = ["HOME", "DODAJ TRANSAKCJE", "HISTORIA OPERACJI", "KONTO UŻYTKOWNIKA", "ZALOGUJ SIĘ"];
+    }
+    if (forIndex === "index") {
+        linkHref = ["index.html", "javascript:checkLogin('yes','html/transaction.html');", "javascript:checkLogin('yes','html/history.html');", "javascript:checkLogin('yes','html/account.html');", "html/signIn.html"];
+    }
+    else {
+        linkHref = ["../index.html", "javascript:checkLogin('no','transaction.html');", "javascript:checkLogin('no','history.html');", "javascript:checkLogin('no','account.html');", "signIn.html"];
+    }
+    var body = document.getElementById("myLinks");
+    for (var i = 0; i < nameHref.length; i++) {
+        a = document.createElement('a');
+        a.href = linkHref[i]; // Insted of calling setAttribute 
+        a.innerHTML = nameHref[i]; // <a>INNER_TEXT</a>
+        body.appendChild(a); // And append the div to the document body
     }
 }
