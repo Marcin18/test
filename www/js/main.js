@@ -218,13 +218,13 @@ function getValue(dane, transactionQuantor) {
         }
     }
     objectJSON = JSON.stringify(result);
-    sortJSON(JSON.parse(objectJSON));
+    sortJSON(JSON.parse(objectJSON, transactionQuantor));
     delete result;
 }
 
-// Funkcja sortuje plik JSON w zależności od wyboru transakcji.
+// Funkcja sortuje plik JSON w zależności od odległości do kantoru.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
-function sortJSON(dane) {
+function sortJSON(dane, transactionQuantor) {
     var check = 1;
     do {
         check = 0;
@@ -263,11 +263,11 @@ function sortJSON(dane) {
         }
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
-    sortDubell(JSON.parse(objectJSON));
+    sortDubell(JSON.parse(objectJSON), transactionQuantor);
     //showDataJSON(JSON.parse(objectJSON));
 }
 
-function sortDubell(data) {
+function sortDubell(data, transactionQuantor) {
     var result = new Array();
     result[0] = data[0];
     var counter = 0;
@@ -283,10 +283,90 @@ function sortDubell(data) {
             }
         }  
     }
-    alert(result);
-    showDataJSON(result);
+    //showDataJSON(result);
+    sortJSON_2(result, transactionQuantor)
     delete result;
 }
+
+// Funkcja sortuje plik JSON w zależności od wyboru transakcji.
+// Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
+function sortJSON_2(dane, transactionQuantor) {
+    var check = 1;
+    do {
+        check = 0;
+        for (var i = 2; i < dane.length; i++) {
+            if (transactionQuantor === "sale") {
+                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
+                    check += 1;
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
+
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
+                }
+                else {
+                    check += 0;
+                }
+            }
+            else {
+                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
+                    check += 1;
+                    poprzedniName = dane[i].name;
+                    nastepnyName = dane[i - 1].name;
+                    poprzedniStreet = dane[i].street;
+                    nastepnyStreet = dane[i - 1].street;
+                    poprzedniLat = dane[i].lat;
+                    nastepnyLat = dane[i - 1].lat;
+                    poprzedniLng = dane[i].lng;
+                    nastepnyLng = dane[i - 1].lng;
+                    poprzedniValue = dane[i].value;
+                    nastepnyValue = dane[i - 1].value;
+                    poprzedniDistance = dane[i].distance;
+                    nastepnyDistance = dane[i - 1].distance;
+
+                    dane[i].name = nastepnyName;
+                    dane[i - 1].name = poprzedniName;
+                    dane[i].street = nastepnyStreet;
+                    dane[i - 1].street = poprzedniStreet;
+                    dane[i].lat = nastepnyLat;
+                    dane[i - 1].lat = poprzedniLat;
+                    dane[i].lng = nastepnyLng;
+                    dane[i - 1].lng = poprzedniLng;
+                    dane[i].value = nastepnyValue;
+                    dane[i - 1].value = poprzedniValue;
+                    dane[i].distance = nastepnyDistance;
+                    dane[i - 1].distance = poprzedniDistance;
+                }
+                else {
+                    check += 0;
+                }
+            }
+        }
+    } while (check > 0);
+    var objectJSON = JSON.stringify(dane);
+    showDataJSON(JSON.parse(objectJSON));
+}
+
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
 // Na wejściu metoda otrzymuje dane typu JSON.
