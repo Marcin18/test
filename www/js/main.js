@@ -268,7 +268,7 @@ function sortJSON(dane) {
 }
 
 function sortDubell(data) {
-    var array = JSON.parse(data.toString());
+    var array = JSON.parse(data);
     var seenNames = {};
 
     array = array.filter(function (currentObject) {
