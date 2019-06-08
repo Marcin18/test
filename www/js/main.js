@@ -263,24 +263,29 @@ function sortJSON(dane) {
         }
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
-    sortDubell(objectJSON);
+    sortDubell(JSON.parse(objectJSON));
     //showDataJSON(JSON.parse(objectJSON));
 }
 
 function sortDubell(data) {
-    var array = JSON.parse(data);
-    var seenNames = {};
-
-    array = array.filter(function (currentObject) {
-        if (currentObject.name in seenNames) {
-            return false;
-        } else {
-            seenNames[currentObject.name] = true;
-            return true;
-        }
-    });
-
-    alert(seenNames);
+    alert(data);
+    var result = new Object();
+    result[0] = data[0];
+    alert(result);
+    for (var i = 1; i < data.length; i++) {
+        for (var j = 0; j < result.length; j++) {
+            if (result[j].name === data[i].name) {
+            }
+            else {
+                alert(result);
+                result.push(data[i]);
+                j = result.length;
+            }
+        }  
+    }
+    alert(result);
+    showDataJSON(JSON.parse(result));
+    delete result;
 }
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
