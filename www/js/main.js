@@ -178,16 +178,16 @@ function getValue(dane, transactionQuantor) {
         for (var counter = 0; counter < 4; counter++) {
             if ((dane.rates[step].saleValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla sprzedaży)
                 if ((dane.rates[step].purchaseValue) != 0) { // sprawdzenie czy w pliku JSON jest wartość 0 (dla kupna)
-                    if (counter == 0) {
+                    if (counter == 0) { // pobranie nazwy kantora
                         counterArray++;
-                        myObject.name = dane.rates[step].name;
+                        myObject.name = dane.rates[step].name; 
                     }
-                    else if (counter == 1) {
+                    else if (counter == 1) { // pobranie ulicy i współrzędnych GPS
                         myObject.street = dane.rates[step].street;
                         myObject.lat = dane.rates[step].lat;
                         myObject.lng = dane.rates[step].lng;
                     }
-                    else if (counter == 2) {
+                    else if (counter == 2) { // warunek sprawdzający dla jakiej transakcji ma pobrać
                         if (transactionQuantor === 'sale') { // warunek sprawdza dla jakiej transakcji ma czytac zmienną z pliku JSON
                             myObject.value = dane.rates[step].saleValue;
                         }
@@ -195,7 +195,7 @@ function getValue(dane, transactionQuantor) {
                             myObject.value = dane.rates[step].purchaseValue;
                         }
                     }
-                    else if (counter == 3) {
+                    else if (counter == 3) { // obliczenie dystansu do kantora
                         var distance = getDistanceFromLatLonInKm(lat, lng, dane.rates[step].lat, dane.rates[step].lng);
                         myObject.distance = distance;
                     }
@@ -229,71 +229,36 @@ function sortJSON(dane, transactionQuantor) {
     do {
         check = 0;
         for (var i = 1; i < dane.length; i++) {
-            if (transactionQuantor === "sale") {
-                if (parseFloat(dane[i].value) < parseFloat(dane[i - 1].value)) {
-                    check += 1;
-                    poprzedniName = dane[i].name;
-                    nastepnyName = dane[i - 1].name;
-                    poprzedniStreet = dane[i].street;
-                    nastepnyStreet = dane[i - 1].street;
-                    poprzedniLat = dane[i].lat;
-                    nastepnyLat = dane[i - 1].lat;
-                    poprzedniLng = dane[i].lng;
-                    nastepnyLng = dane[i - 1].lng;
-                    poprzedniValue = dane[i].value;
-                    nastepnyValue = dane[i - 1].value;
-                    poprzedniDistance = dane[i].distance;
-                    nastepnyDistance = dane[i - 1].distance;
+            if (parseFloat(dane[i].distance) < parseFloat(dane[i - 1].distance)) {
+                check += 1;
+                poprzedniName = dane[i].name;
+                nastepnyName = dane[i - 1].name;
+                poprzedniStreet = dane[i].street;
+                nastepnyStreet = dane[i - 1].street;
+                poprzedniLat = dane[i].lat;
+                nastepnyLat = dane[i - 1].lat;
+                poprzedniLng = dane[i].lng;
+                nastepnyLng = dane[i - 1].lng;
+                poprzedniValue = dane[i].value;
+                nastepnyValue = dane[i - 1].value;
+                poprzedniDistance = dane[i].distance;
+                nastepnyDistance = dane[i - 1].distance;
 
-                    dane[i].name = nastepnyName;
-                    dane[i - 1].name = poprzedniName;
-                    dane[i].street = nastepnyStreet;
-                    dane[i - 1].street = poprzedniStreet;
-                    dane[i].lat = nastepnyLat;
-                    dane[i - 1].lat = poprzedniLat;
-                    dane[i].lng = nastepnyLng;
-                    dane[i - 1].lng = poprzedniLng;
-                    dane[i].value = nastepnyValue;
-                    dane[i - 1].value = poprzedniValue;
-                    dane[i].distance = nastepnyDistance;
-                    dane[i - 1].distance = poprzedniDistance;
-                }
-                else {
-                    check += 0;
-                }
+                dane[i].name = nastepnyName;
+                dane[i - 1].name = poprzedniName;
+                dane[i].street = nastepnyStreet;
+                dane[i - 1].street = poprzedniStreet;
+                dane[i].lat = nastepnyLat;
+                dane[i - 1].lat = poprzedniLat;
+                dane[i].lng = nastepnyLng;
+                dane[i - 1].lng = poprzedniLng;
+                dane[i].value = nastepnyValue;
+                dane[i - 1].value = poprzedniValue;
+                dane[i].distance = nastepnyDistance;
+                dane[i - 1].distance = poprzedniDistance;
             }
             else {
-                if (parseFloat(dane[i].value) > parseFloat(dane[i - 1].value)) {
-                    check += 1;
-                    poprzedniName = dane[i].name;
-                    nastepnyName = dane[i - 1].name;
-                    poprzedniStreet = dane[i].street;
-                    nastepnyStreet = dane[i - 1].street;
-                    poprzedniLat = dane[i].lat;
-                    nastepnyLat = dane[i - 1].lat;
-                    poprzedniLng = dane[i].lng;
-                    nastepnyLng = dane[i - 1].lng;
-                    poprzedniValue = dane[i].value;
-                    nastepnyValue = dane[i - 1].value;
-                    poprzedniDistance = dane[i].distance;
-                    nastepnyDistance = dane[i - 1].distance;
-
-                    dane[i].name = nastepnyName;
-                    dane[i - 1].name = poprzedniName;
-                    dane[i].street = nastepnyStreet;
-                    dane[i - 1].street = poprzedniStreet;
-                    dane[i].lat = nastepnyLat;
-                    dane[i - 1].lat = poprzedniLat;
-                    dane[i].lng = nastepnyLng;
-                    dane[i - 1].lng = poprzedniLng;
-                    dane[i].value = nastepnyValue;
-                    dane[i - 1].value = poprzedniValue;
-                    dane[i].distance = nastepnyDistance;
-                    dane[i - 1].distance = poprzedniDistance;
-                }
-                else {
-                    check += 0;
-                }
+                check += 0;
             }
         }
     } while (check > 0);
@@ -399,7 +364,7 @@ function addTransaction() {
         localStorage.setItem("userHistory", objectJSON);
         delete object;
         delete result;
-        alert("I cyk dodane do historii :)");
+        alert("Dodane do historii :)");
     }
     else {
         alert("Wszystkie pola są ważne :)");
@@ -467,7 +432,6 @@ function accountResult() {
     showAccount(body, "historyBox", object.length, "Wszystkich transakcji:");
     showAccount(body, "historyBox", sumaKwot, "Łączna wartość wymiany [w zł]:");
     showAccount(body, "historyBox", countingOffices, "Ilość odwiedzonych kantorów:");
-
 }
 
 function showAccount( body, nameclass, resultValue, text) {
