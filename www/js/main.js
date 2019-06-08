@@ -272,7 +272,10 @@ function sortDubell(data) {
     result.push(data[0]); // dodanie pierwszego elementu
     for (var i = 1; i < data.length; i++) {
         for (var j = 0; j < result.length; j++) {
-            if (result[j].name !== data[i].name) {
+            if (result[j].name +== data[i].name) {
+            }
+            else {
+                alert(result);
                 result.push(data[i]);
                 j = result.length;
             }
