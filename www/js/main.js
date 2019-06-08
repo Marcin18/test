@@ -289,6 +289,7 @@ function sortDubell(data, transactionQuantor) {
 // Funkcja sortuje plik JSON w zależności od wyboru transakcji.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
 function sortJSON_2(dane, transactionQuantor) {
+    alert(transactionQuantor);
     var check = 1;
     do {
         check = 0;
