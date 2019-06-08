@@ -171,7 +171,6 @@ function searchOffer() {
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
 // Na wejściu metoda otrzymuje dane w strukturze JSON oraz typ przeprowadzonej transakcji.
 function getValue(dane, transactionQuantor) {
-    alert(transactionQuantor);
     var result = new Array();
     var counterArray = -1;
     for (var step = 0; step < dane.rates.length; step++) {
@@ -226,7 +225,6 @@ function getValue(dane, transactionQuantor) {
 // Funkcja sortuje plik JSON w zależności od odległości do kantoru.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
 function sortJSON(dane, transactionQuantor) {
-    alert(transactionQuantor);
     var check = 1;
     do {
         check = 0;
@@ -268,8 +266,8 @@ function sortJSON(dane, transactionQuantor) {
     sortDubell(JSON.parse(objectJSON), transactionQuantor);
 }
 
+// Funkcja ma za zadanie usunięcie dubli w pliku JSON
 function sortDubell(data, transactionQuantor) {
-    alert(transactionQuantor);
     var result = new Array();
     result[0] = data[0];
     var counter = 0;
@@ -292,7 +290,6 @@ function sortDubell(data, transactionQuantor) {
 // Funkcja sortuje plik JSON w zależności od wyboru transakcji.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
 function sortJSON_2(dane, transactionQuantor) {
-    alert(transactionQuantor);
     var check = 1;
     do {
         check = 0;
@@ -368,7 +365,6 @@ function sortJSON_2(dane, transactionQuantor) {
     var objectJSON = JSON.stringify(dane);
     showDataJSON(JSON.parse(objectJSON));
 }
-
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
 // Na wejściu metoda otrzymuje dane typu JSON.
