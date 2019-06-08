@@ -268,11 +268,13 @@ function sortJSON(dane) {
 }
 
 function sortDubell(data) {
+    alert(data);
     var result = new Object();
     result.push(data[0]); // dodanie pierwszego elementu
+    alert(result);
     for (var i = 1; i < data.length; i++) {
         for (var j = 0; j < result.length; j++) {
-            if (result[j].name +== data[i].name) {
+            if (result[j].name === data[i].name) {
             }
             else {
                 alert(result);
