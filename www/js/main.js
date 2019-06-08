@@ -264,7 +264,6 @@ function sortJSON(dane, transactionQuantor) {
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
     sortDubell(JSON.parse(objectJSON), transactionQuantor);
-    //showDataJSON(JSON.parse(objectJSON));
 }
 
 function sortDubell(data, transactionQuantor) {
@@ -283,8 +282,7 @@ function sortDubell(data, transactionQuantor) {
             }
         }  
     }
-    //showDataJSON(result);
-    sortJSON_2(result, transactionQuantor)
+    sortJSON_2(result, transactionQuantor);
     delete result;
 }
 
