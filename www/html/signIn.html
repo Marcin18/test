@@ -77,8 +77,8 @@
                                 <button onclick="login()" type="submit" class="button">Sign In</button>
                             </div>
                             <div class="hr"></div>
-                            <center><button class="fb" type="button">Log In With Facebook</button></center>
-                            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                            <center><button scope="public_profile,email" onlogin="checkLoginState();" class="fb" type="button">Log In With Facebook</button></center>
+                            
                         </div>
 
 
@@ -98,7 +98,6 @@
 
                             <div id="user_div" class="loggedin-div">
                                 <h3>Welcome User</h3>
-                                <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
                                 <button onclick="logout()">Logout</button>
 
                                 <div class="hr"></div>

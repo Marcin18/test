@@ -47,7 +47,6 @@ function login(){
 
     window.alert("Error : " + errorMessage);
   });
-
 }
 
 function logout(){
