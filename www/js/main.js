@@ -225,6 +225,7 @@ function getValue(dane, transactionQuantor) {
 // Funkcja sortuje plik JSON w zależności od odległości do kantoru.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
 function sortJSON(dane, transactionQuantor) {
+    alert(transactionQuantor);
     var check = 1;
     do {
         check = 0;
@@ -267,6 +268,7 @@ function sortJSON(dane, transactionQuantor) {
 }
 
 function sortDubell(data, transactionQuantor) {
+    alert(transactionQuantor);
     var result = new Array();
     result[0] = data[0];
     var counter = 0;
