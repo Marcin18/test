@@ -268,7 +268,7 @@ function sortJSON(dane) {
 }
 
 function sortDubell(data) {
-    var result = new Object();
+    var result = new Array();
     result[0] = data[0];
     var counter = 0;
     for (var i = 1; i < data.length; i++) {
