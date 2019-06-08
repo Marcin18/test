@@ -77,8 +77,8 @@
                                 <button onclick="login()" type="submit" class="button">Sign In</button>
                             </div>
                             <div class="hr"></div>
-                            <center><button scope="public_profile,email" onlogin="checkLoginState();" class="fb" type="button">Log In With Facebook</button></center>
-                            
+                            <center><button class="fb" type="button">Log In With Facebook</button></center>
+                            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
                         </div>
 
 
