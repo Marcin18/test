@@ -171,6 +171,7 @@ function searchOffer() {
 // Funkcja wyciąga potrzebne dane z pliku JSON i następnie eksportuje je do swojego pliku JSON do późniejszych operacji.
 // Na wejściu metoda otrzymuje dane w strukturze JSON oraz typ przeprowadzonej transakcji.
 function getValue(dane, transactionQuantor) {
+    alert(transactionQuantor);
     var result = new Array();
     var counterArray = -1;
     for (var step = 0; step < dane.rates.length; step++) {
@@ -218,7 +219,7 @@ function getValue(dane, transactionQuantor) {
         }
     }
     objectJSON = JSON.stringify(result);
-    sortJSON(JSON.parse(objectJSON, transactionQuantor));
+    sortJSON(JSON.parse(objectJSON), transactionQuantor);
     delete result;
 }
 
