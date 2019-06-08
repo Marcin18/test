@@ -218,13 +218,13 @@ function getValue(dane, transactionQuantor) {
         }
     }
     objectJSON = JSON.stringify(result);
-    sortJSON(JSON.parse(objectJSON), transactionQuantor);
+    sortJSON(JSON.parse(objectJSON));
     delete result;
 }
 
 // Funkcja sortuje plik JSON w zależności od wyboru transakcji.
 // Na wejściu metoda otrzymuje zmienną z danymi w strukturze JSON oraz zmienną odnoszącą się do wybranej transakcji.
-function sortJSON(dane, transactionQuantor) {
+function sortJSON(dane) {
     var check = 1;
     do {
         check = 0;
@@ -263,7 +263,24 @@ function sortJSON(dane, transactionQuantor) {
         }
     } while (check > 0);
     var objectJSON = JSON.stringify(dane);
-    showDataJSON(JSON.parse(objectJSON));
+    sortDubell(JSON.parse(objectJSON));
+    //showDataJSON(JSON.parse(objectJSON));
+}
+
+function sortDubell(data) {
+    var result = new Object();
+    result.push(data[0]); // dodanie pierwszego elementu
+    for (var i = 1; i < data.length; i++) {
+        for (var j = 0; j < result.length; j++) {
+            if (result[j].name !== data[i].name) {
+                result.push(data[i]);
+                j = result.length;
+            }
+        }  
+    }
+    alert(result);
+    showDataJSON(JSON.parse(result));
+    delete result;
 }
 
 // Funkcja wyświetla dane w głównym oknie aplikacji.
