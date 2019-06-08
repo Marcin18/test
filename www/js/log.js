@@ -6,8 +6,9 @@ firebase.auth().onAuthStateChanged(function(user) {
         if (text === "connect") {
             localStorage.setItem('database', 'inconnect');
             logout();
+            location.reload();
         }
-        else{
+        else {
             localStorage.setItem('database', 'connect');
             location.href = "account.html";
         }

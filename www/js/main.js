@@ -473,8 +473,8 @@ function accountResult() {
 function showAccount( body, nameclass, resultValue, text) {
     var div = document.createElement('div');
     div.setAttribute("class", nameclass);
-    this.createElementDiv(div, "testHistory", text);
-    this.createElementDiv(div, "historyUser", resultValue);
+    this.createElementDiv(div, "textAccount", text);
+    this.createElementDiv(div, "valueAccount", resultValue);
     body.appendChild(div);
 }
 
