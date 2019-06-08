@@ -279,6 +279,7 @@ function sortDubell(data) {
                 alert(result);
                 counter++;
                 result[counter] = data[i];
+                alert("poszlo");
                 j = result.length;
             }
         }  
