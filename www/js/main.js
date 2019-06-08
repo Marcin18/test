@@ -274,18 +274,17 @@ function sortDubell(data) {
     for (var i = 1; i < data.length; i++) {
         for (var j = 0; j < result.length; j++) {
             if (result[j].name === data[i].name) {
+                j = result.length;
             }
-            else {
-                alert(result);
+            if ((j + 1) == result.length)  {
                 counter++;
                 result[counter] = data[i];
-                alert("poszlo");
                 j = result.length;
             }
         }  
     }
     alert(result);
-    showDataJSON(JSON.parse(result));
+    showDataJSON(result);
     delete result;
 }
 
