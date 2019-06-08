@@ -268,17 +268,17 @@ function sortJSON(dane) {
 }
 
 function sortDubell(data) {
-    alert(data);
     var result = new Object();
     result[0] = data[0];
-    alert(result);
+    var counter = 0;
     for (var i = 1; i < data.length; i++) {
         for (var j = 0; j < result.length; j++) {
             if (result[j].name === data[i].name) {
             }
             else {
                 alert(result);
-                result.push(data[i]);
+                counter++;
+                result[counter] = data[i];
                 j = result.length;
             }
         }  
