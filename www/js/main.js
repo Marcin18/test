@@ -122,7 +122,6 @@ function showGoogleMaps(lat, lon) {
 // Metoda wykonuje zapytanie na api z quantor.pl.
 function searchOffer() {
     GPSDevice();
-    localStorage.clear();
     if (lat != 0 && lng != 0) {
         var e = document.getElementById("transaction");
         var transactionQuantor = e.options[e.selectedIndex].value;
